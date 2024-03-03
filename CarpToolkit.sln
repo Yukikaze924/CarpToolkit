@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34616.47
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarpToolkit", "CarpToolkit\CarpToolkit.csproj", "{4D11C363-CE77-4466-9588-1E6BAC634F6F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarpToolkit.Desktop", "CarpToolkit.Desktop\CarpToolkit.Desktop.csproj", "{C4159CD8-CEEF-41D8-97B4-C604E0A2A803}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D11C363-CE77-4466-9588-1E6BAC634F6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D11C363-CE77-4466-9588-1E6BAC634F6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D11C363-CE77-4466-9588-1E6BAC634F6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D11C363-CE77-4466-9588-1E6BAC634F6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4159CD8-CEEF-41D8-97B4-C604E0A2A803}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4159CD8-CEEF-41D8-97B4-C604E0A2A803}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4159CD8-CEEF-41D8-97B4-C604E0A2A803}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4159CD8-CEEF-41D8-97B4-C604E0A2A803}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F3B88376-7022-46A2-BFD3-88FB30B5D0DE}
+	EndGlobalSection
+EndGlobal

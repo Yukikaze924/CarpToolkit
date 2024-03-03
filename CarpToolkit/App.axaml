@@ -1,0 +1,22 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:local="using:CarpToolkit"
+			 xmlns:vm="using:CarpToolkit.ViewModels"
+			 xmlns:sty="using:FluentAvalonia.Styling"
+             x:Class="CarpToolkit.App">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+	<Application.DataTemplates>
+		<local:ViewLocator/>
+	</Application.DataTemplates>
+
+    <Application.Styles>
+        <!--<FluentTheme />-->
+		<sty:FluentAvaloniaTheme PreferUserAccentColor="True"/>
+		<StyleInclude Source="avares://CarpToolkit/Assets/Icons.axaml" />
+		<Style Selector="Button:pointerover">
+			<Setter Property="Background" Value="#1e1e1e"/>
+		</Style>
+    </Application.Styles>
+	
+</Application>
