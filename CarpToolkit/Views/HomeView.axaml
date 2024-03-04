@@ -2,12 +2,70 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:local="using:CarpToolkit"
+			 xmlns:vm="using:CarpToolkit.ViewModels"
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 xmlns:cont="using:CarpToolkit.Controls"
+			 xmlns:conv="using:CarpToolkit.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="CarpToolkit.Views.HomeView">
+             x:Class="CarpToolkit.Views.HomeView"
+			 x:DataType="vm:HomeViewModel">
 
-	<ScrollViewer Padding="10">
-		<TextBlock Text="首页"/>
+	<UserControl.Resources>
+		<ControlTheme x:Key="NavButtonStyle"
+                      TargetType="Button"
+                      BasedOn="{StaticResource {x:Type Button}}">
+			<Setter Property="Width" Value="170" />
+			<Setter Property="Height" Value="160" />
+			<Setter Property="Padding" Value="0" />
+			<Setter Property="Margin" Value="6" />
+			<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+			<Setter Property="VerticalContentAlignment" Value="Stretch" />
+
+			<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="ClipToBounds" Value="True" />
+			</Style>
+		</ControlTheme>
+
+		<conv:StringToBitmapConverter x:Key="StringBmpConv" />
+	</UserControl.Resources>
+
+	<ScrollViewer>
+		<StackPanel Spacing="-75" Margin="5 5 0 0">
+
+			<ItemsControl ItemsSource="{Binding Pages}"
+                          Name="TileItemsControl"
+                          ClipToBounds="False"
+                          Margin="{StaticResource SampleAppPageMargin}">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<WrapPanel />
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				<ItemsControl.ItemTemplate>
+					<DataTemplate DataType="vm:HomeNavPageViewModel">
+						<Button Theme="{StaticResource NavButtonStyle}">
+							<Grid RowDefinitions="3*,*">
+								<Border CornerRadius="4 4 0 0"
+                                        VerticalAlignment="Stretch"
+                                        HorizontalAlignment="Stretch"
+                                        RenderOptions.BitmapInterpolationMode="HighQuality">
+									<Border.Background>
+										<ImageBrush Source="{Binding ImageUri, Converter={StaticResource StringBmpConv}}"
+                                                    Stretch="Fill" />
+									</Border.Background>
+								</Border>
+								<TextBlock Text="{Binding Title}"
+                                           FontWeight="SemiBold"
+                                           Margin="12"
+                                           Grid.Row="1" />
+							</Grid>
+						</Button>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+			
+		</StackPanel>
 	</ScrollViewer>
 	
 </UserControl>

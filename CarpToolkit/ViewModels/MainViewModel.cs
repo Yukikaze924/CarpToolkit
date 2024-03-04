@@ -35,7 +35,4 @@ public partial class MainViewModel : ViewModelBase
         new SidebarButton("Home", typeof(HomeViewModel), "Home"),
         new SidebarButton("About", typeof(AboutViewModel), "Play"),
     };
-
-    [ObservableProperty]
-    private string? _currentTheme = "Dark";
 }

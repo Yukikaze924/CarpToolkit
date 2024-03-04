@@ -20,6 +20,22 @@
     <None Remove="Assets\FAIcon.ico" />
   </ItemGroup>
 
+  
+  <ItemGroup>
+    <Content Include="Assets\Images\AvGithub.png" />
+    <Content Include="Assets\Images\Documentation.png" />
+    <Content Include="Assets\Images\FAHeader2.png" />
+    <Content Include="Assets\Images\FAHeader2_Dark.png" />
+    <Content Include="Assets\Images\FAHeaderBackground.png" />
+    <Content Include="Assets\Images\FAHeaderBackground_Dark.png" />
+    <Content Include="Assets\Images\FAHeader_CoreControls.png" />
+    <Content Include="Assets\Images\FAHeader_CoreControls_Dark.png" />
+    <Content Include="Assets\Images\FAHeader_NewControls.png" />
+    <Content Include="Assets\Images\FAHeader_NewControls_Dark.png" />
+    <Content Include="Assets\Images\FluentDesign.png" />
+    <Content Include="Assets\Images\Github.png" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.0.9" />
     <PackageReference Include="Avalonia.Skia" Version="11.0.9" />

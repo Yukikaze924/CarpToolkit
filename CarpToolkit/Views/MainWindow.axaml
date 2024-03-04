@@ -35,7 +35,7 @@
 						   Content="{Binding CurrentPage}"
 						   PaneDisplayMode="Left"
 						   OpenPaneLength="240"
-						   IsPaneOpen="True"
+						   IsPaneOpen="{Binding IsPaneOpen}"
 						   IsSettingsVisible="False"
 						   Margin="3 0 0 0">
 			
