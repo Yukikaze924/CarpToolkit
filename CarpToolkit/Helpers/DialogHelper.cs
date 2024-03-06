@@ -25,7 +25,7 @@ namespace CarpToolkit.Helpers
 
             var td = new TaskDialog
             {
-                Content = "It looks like your platform doesn't support Process.Start " +
+                Content = "It looks like your system experienced some process issues " +
                 "and we are unable to open a link.",
                 SubHeader = "Oh No!",
                 Commands =
@@ -41,7 +41,7 @@ namespace CarpToolkit.Helpers
 
             copyLinkButton.Click += async (s, __) =>
             {
-                await ClipboardService.SetTextAsync(uri.ToString());
+                await ClipboardHelper.SetTextAsync(uri.ToString());
 
                 var flyout = new Flyout
                 {
@@ -68,15 +68,7 @@ namespace CarpToolkit.Helpers
 
             await td.ShowAsync(true);
         }
-    }
 
-    public static class ClipboardService
-    {
-        public static TopLevel Owner { get; set; }
 
-        public static Task SetTextAsync(string text) =>
-            Owner.Clipboard.SetTextAsync(text);
     }
 }
-
-

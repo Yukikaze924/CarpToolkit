@@ -1,4 +1,5 @@
-﻿using CarpToolkit.Models;
+﻿using CarpToolkit.Helpers;
+using CarpToolkit.Models;
 using CarpToolkit.ViewModels;
 using FluentAvalonia.UI.Windowing;
 
@@ -19,6 +20,8 @@ public partial class MainWindow : AppWindow
         TitleBar.TitleBarHitTestType = TitleBarHitTestType.Complex;
 
         MainNavigationView.FooterMenuItems.Add(new SidebarButton("Settings", typeof(SettingsViewModel), "Settings"));
+
+        ClipboardHelper.init(this);
     }
 
     //private void InputElement_OnPointerMoved(object? sender, PointerEventArgs e)

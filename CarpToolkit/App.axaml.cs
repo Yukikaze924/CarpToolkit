@@ -2,9 +2,11 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-
+using CarpToolkit.Helpers;
+using CarpToolkit.Models;
 using CarpToolkit.ViewModels;
 using CarpToolkit.Views;
+using System.IO;
 
 namespace CarpToolkit;
 
@@ -37,5 +39,12 @@ public partial class App : Application
         }
 
         base.OnFrameworkInitializationCompleted();
+
+        SettingsHelper.ChangeThemeVariantByString(SettingsHelper.Settings.AppTheme);
+    }
+
+    public App()
+    {
+        SettingsHelper.init();
     }
 }

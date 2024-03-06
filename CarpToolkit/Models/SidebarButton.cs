@@ -11,6 +11,10 @@ namespace CarpToolkit.Models
 {
     public class SidebarButton
     {
+        public string Label { get; set; }
+        public Type ModelType { get; set; }
+        public string Icon { get; set; }
+
         public SidebarButton(string label, Type type, string icon)
         {
             Label = label;
@@ -19,9 +23,5 @@ namespace CarpToolkit.Models
             //Application.Current!.TryFindResource(icon, out var res);
             //Icon = (StreamGeometry)res!;
         }
-
-        public string Label { get; set; }
-        public Type ModelType { get; set; }
-        public string Icon { get; set; }
     }
 }

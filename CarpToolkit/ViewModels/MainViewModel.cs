@@ -1,4 +1,5 @@
-﻿using CarpToolkit.Models;
+﻿using CarpToolkit.Helpers;
+using CarpToolkit.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -9,19 +10,13 @@ namespace CarpToolkit.ViewModels;
 public partial class MainViewModel : ViewModelBase
 {
     [ObservableProperty]
-    private bool _isPaneOpen = false;
-    [RelayCommand]
-    private void ChangePaneState()
-    {
-        IsPaneOpen = !IsPaneOpen;
-    }
-
-    [ObservableProperty]
     private ViewModelBase _currentPage = new HomeViewModel();
 
     [ObservableProperty]
-    private SidebarButton? _selectedButton;
+    private bool _isPaneOpen = SettingsHelper.Load().IsPaneOpen;
 
+    [ObservableProperty]
+    private SidebarButton? _selectedButton;
     partial void OnSelectedButtonChanged(SidebarButton? value)
     {
         if (value is null) return;
@@ -30,9 +25,15 @@ public partial class MainViewModel : ViewModelBase
         CurrentPage = (ViewModelBase)instance;
     }
 
-    private ObservableCollection<SidebarButton> SidebarButtons { get; } = new()
+    [ObservableProperty]
+    private ObservableCollection<SidebarButton> _sidebarButtons = new()
     {
         new SidebarButton("Home", typeof(HomeViewModel), "Home"),
         new SidebarButton("About", typeof(AboutViewModel), "Play"),
     };
+
+    public MainViewModel()
+    {
+        SelectedButton = SidebarButtons[0];
+    }
 }
