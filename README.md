@@ -1,6 +1,6 @@
 # Carp Toolkit
 
-Foobar is a Python library for dealing with word pluralization.
+Carp Toolkit is a Application based on AvaloniaUi
 
 ## Installation
 
