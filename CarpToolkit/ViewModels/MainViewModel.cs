@@ -20,8 +20,10 @@ public partial class MainViewModel : ViewModelBase
     partial void OnSelectedButtonChanged(SidebarButton? value)
     {
         if (value is null) return;
+
         var instance = Activator.CreateInstance(value.ModelType);
         if (instance == null) return;
+
         CurrentPage = (ViewModelBase)instance;
     }
 
@@ -29,11 +31,15 @@ public partial class MainViewModel : ViewModelBase
     private ObservableCollection<SidebarButton> _sidebarButtons = new()
     {
         new SidebarButton("Home", typeof(HomeViewModel), "Home"),
-        new SidebarButton("About", typeof(AboutViewModel), "Play"),
+        new SidebarButton("Tools", typeof(ToolsViewModel), "Library"),
     };
+
+    public static EventHandler<ViewModelBase> CurrentPageChanged;
 
     public MainViewModel()
     {
         SelectedButton = SidebarButtons[0];
+
+        CurrentPageChanged += (sender, page) => CurrentPage = page;
     }
 }

@@ -1,0 +1,69 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:CarpToolkit.ViewModels"
+			 xmlns:m="using:CarpToolkit.Models"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 xmlns:cont="using:CarpToolkit.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="CarpToolkit.Views.ToolsView"
+			 x:DataType="vm:ToolsViewModel">
+
+	<Design.DataContext>
+		<vm:ToolsViewModel/>
+	</Design.DataContext>
+
+	<UserControl.Resources>
+		<!--<conv:ResourceKeyToIconConverter x:Key="ResKeyToIconConv" />-->
+		<!-- override some SettingsExpander resources to make the icons bigger -->
+		<x:Double x:Key="SettingsExpanderItemIconSize">48</x:Double>
+		<Thickness x:Key="SettingsExpanderItemContentMargin">64 0 0 0</Thickness>
+	</UserControl.Resources>
+
+	<ScrollViewer>
+		<StackPanel Spacing="25"
+                    Margin="0 0 0 30"
+                    ClipToBounds="False">
+
+			<cont:PageHeaderControl TextType="CoreControls"
+                                    Classes="small"
+								    Height="100"
+									/>
+			
+			<Image Source="avares://CarpToolkit/Assets/Images/Github.png" Width="100"
+				   Margin="40 -80 0 0" HorizontalAlignment="Left"/>
+
+			<TextBlock Text="Controls included with Avalonia"
+                       Theme="{StaticResource SubtitleTextBlockStyle}"
+                       Margin="30 0 0 0"/>
+			<TextBlock Text="Controls included with Avalonia"
+                       Margin="30 -25 0 0"
+                       Theme="{StaticResource CaptionTextBlockStyle}"/>
+
+			<ItemsControl ItemsSource="{Binding ToolListItems}"
+                          Name="ItemsControl"
+                          ClipToBounds="False"
+                          Padding="{StaticResource SampleAppPageMargin}">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel Spacing="4" ClipToBounds="False" />
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				<ItemsControl.ItemTemplate>
+					<DataTemplate DataType="m:ToolListItem">
+						<ui:SettingsExpander Command="{Binding InvokeCommand}"
+                                             Header="{Binding Header}"
+                                             Description="{Binding Description}"
+                                             IsClickEnabled="True"
+                                             ClipToBounds="False"
+                                             IconSource="{Binding Icon}" >
+						</ui:SettingsExpander>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+
+		</StackPanel>
+	</ScrollViewer>
+	
+</UserControl>

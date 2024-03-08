@@ -16,11 +16,11 @@ namespace CarpToolkit.ViewModels
         {
             Pages = new List<HomeNavPageViewModel>
             {
-                new HomeNavPageViewModel("Documentation", new Uri("https://amwx.github.io/FluentAvaloniaDocs/"))
+                new HomeNavPageViewModel("Documentation", new Uri("https://yukikaze924.github.io/"))
                 {
                     ImageUri = "avares://CarpToolkit/Assets/Images/Documentation.png"
                 },
-                new HomeNavPageViewModel("Github Repo", new Uri("https://www.github.com/amwx/FluentAvalonia"))
+                new HomeNavPageViewModel("Github Repo", new Uri("https://github.com/Yukikaze924/CarpToolkit"))
                 {
                     ImageUri = "avares://CarpToolkit/Assets/Images/Github.png"
                 },

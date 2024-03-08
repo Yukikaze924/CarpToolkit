@@ -59,7 +59,7 @@ namespace CarpToolkit.ViewModels
         }
 
         [RelayCommand]
-        private async Task OnLaunchRepoLinkItemClickedAsync()
+        private async Task LaunchRepoLinkItemClickedAsync()
         {
             try
             {

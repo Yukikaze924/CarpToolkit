@@ -6,6 +6,8 @@ using CarpToolkit.Helpers;
 using CarpToolkit.Models;
 using CarpToolkit.ViewModels;
 using CarpToolkit.Views;
+using IronPython.Hosting;
+using Microsoft.Scripting.Hosting;
 using System.IO;
 
 namespace CarpToolkit;
@@ -46,5 +48,6 @@ public partial class App : Application
     public App()
     {
         SettingsHelper.init();
+        PythonHelper.init();
     }
 }

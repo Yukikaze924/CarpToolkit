@@ -22,6 +22,36 @@
 
   
   <ItemGroup>
+    <Content Include="Assets\Icons\AppWindowIcon.png" />
+    <Content Include="Assets\Icons\BasicInputIcon.png" />
+    <Content Include="Assets\Icons\ColorPickerButtonIcon.png" />
+    <Content Include="Assets\Icons\ColorPickerIcon.png" />
+    <Content Include="Assets\Icons\CommandBarFlyoutIcon.png" />
+    <Content Include="Assets\Icons\CommandBarIcon.png" />
+    <Content Include="Assets\Icons\ContentDialogIcon.png" />
+    <Content Include="Assets\Icons\DataIcon.png" />
+    <Content Include="Assets\Icons\DateIcon.png" />
+    <Content Include="Assets\Icons\FAComboBoxIcon.png" />
+    <Content Include="Assets\Icons\FrameIcon.png" />
+    <Content Include="Assets\Icons\HyperlinkButtonIcon.png" />
+    <Content Include="Assets\Icons\IconsIcon.png" />
+    <Content Include="Assets\Icons\InfoBadgeIcon.png" />
+    <Content Include="Assets\Icons\InfoBarIcon.png" />
+    <Content Include="Assets\Icons\ListIcon.png" />
+    <Content Include="Assets\Icons\MenuIcon.png" />
+    <Content Include="Assets\Icons\MiscIcon.png" />
+    <Content Include="Assets\Icons\NavigationViewIcon.png" />
+    <Content Include="Assets\Icons\NumberBoxIcon.png" />
+    <Content Include="Assets\Icons\PickerFlyoutBaseIcon.png" />
+    <Content Include="Assets\Icons\RangeIcon.png" />
+    <Content Include="Assets\Icons\RangeSliderIcon.png" />
+    <Content Include="Assets\Icons\SettingsExpanderIcon.png" />
+    <Content Include="Assets\Icons\TabViewIcon.png" />
+    <Content Include="Assets\Icons\TaskDialogIcon.png" />
+    <Content Include="Assets\Icons\TeachingTipIcon.png" />
+    <Content Include="Assets\Icons\TextIcon.png" />
+    <Content Include="Assets\Icons\ViewIcon.png" />
+    <Content Include="Assets\Icons\XamlUICommandIcon.png" />
     <Content Include="Assets\Images\AvGithub.png" />
     <Content Include="Assets\Images\Documentation.png" />
     <Content Include="Assets\Images\FAHeader2.png" />
@@ -46,6 +76,9 @@
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.9" />
     <PackageReference Include="FluentAvaloniaUI" Version="2.0.5" />
+    <PackageReference Include="IronPython" Version="3.4.1" />
+    <PackageReference Include="Markdig" Version="0.35.0" />
+    <PackageReference Include="Markdown.Avalonia" Version="11.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
@@ -53,5 +86,11 @@
     <AvaloniaXaml Update="Assets\Icons.axaml">
       <SubType>Designer</SubType>
     </AvaloniaXaml>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Helpers\CommonHelper.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

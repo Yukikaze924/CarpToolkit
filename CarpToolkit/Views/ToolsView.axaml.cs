@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace CarpToolkit.Views
 {
-    public partial class AboutView : UserControl
+    public partial class ToolsView : UserControl
     {
-        public AboutView()
+        public ToolsView()
         {
             InitializeComponent();
         }

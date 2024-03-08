@@ -76,7 +76,7 @@
 			</ui:SettingsExpander>
 
 			<ui:SettingsExpander Header="Sidebar Default State"
-					 IconSource="DockLeft"
+					 IconSource="DockLeftFilled"
 					 Description="Change the current app theme">
 				<ui:SettingsExpander.Footer>
 					<ToggleSwitch IsChecked="{Binding IsPaneOpen}" OnContent="Expanded" OffContent="Collapsed"/>
@@ -97,33 +97,36 @@
 				<ui:SettingsExpanderItem>
 					<StackPanel Spacing="4">
 						<TextBlock Text="Dependencies" />
-						<TextBlock TextWrapping="Wrap"
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}">
-							<Run>
-								All resources, brushes, and control naming come from the Avalonia repository (https://github.com/microsoft/microsoft-ui-xaml) which is licensed under the MIT license.
-							</Run>
-							<LineBreak />
-							<LineBreak />
-							<Run>
-								Avalonia is licensed under the MIT license
-							</Run>
-							<LineBreak />
-							<!--<LineBreak />
-							<Run>
-								Both Avalonia and WinUI are not affiliated with and do not endorse FluentAvalonia.
-							</Run>
-							<LineBreak />-->
-							<LineBreak />
-							<Run>
-								Main page header image created using https://www.freepik.com/free-vector/paper-style-white-monochrome-background_15628815.htm
-							</Run>
+						<TextBlock TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}">
+							All resources, brushes, and control naming come from the Avalonia repository (https://github.com/AvaloniaUI/Avalonia) which is licensed under the MIT license.
+						</TextBlock>
+						<TextBlock TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}">
+							Avalonia is licensed under the MIT license
+						</TextBlock>
+						<!--<TextBlock TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}">
+							Both Avalonia and WinUI are not affiliated with and do not endorse FluentAvalonia.
+						</TextBlock>-->
+						<TextBlock TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}">
+							Main page header image created using https://www.freepik.com/free-vector/paper-style-white-monochrome-background_15628815.htm
 						</TextBlock>
 					</StackPanel>
 				</ui:SettingsExpanderItem>
 				<ui:SettingsExpanderItem>
 					<StackPanel Spacing="4">
 						<TextBlock Text="License" />
-						<TextBlock TextWrapping="Wrap"
+						<TextBlock TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}">
+							CarpToolkit is licensed under the MIT license.
+						</TextBlock>
+						<TextBlock TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}">
+							Carp.org © Copyright 2024
+						</TextBlock>
+						<TextBlock TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}">
+							THIS CODE AND INFORMATION IS PROVIDED ‘AS IS’ WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
+						</TextBlock>
+						<TextBlock TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}">
+							For full MIT license, please see the license.md file
+						</TextBlock>
+						<!--<TextBlock TextWrapping="Wrap"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}">
 							<Run>
 								CarpToolkit is licensed under the MIT license.
@@ -141,7 +144,7 @@
 							<Run>
 								For full MIT license, please see the license.md file
 							</Run>
-						</TextBlock>
+						</TextBlock>-->
 					</StackPanel>
 				</ui:SettingsExpanderItem>
 			</ui:SettingsExpander>

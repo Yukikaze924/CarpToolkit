@@ -11,6 +11,10 @@
              x:Class="CarpToolkit.Views.HomeView"
 			 x:DataType="vm:HomeViewModel">
 
+	<Design.DataContext>
+		<vm:HomeViewModel/>
+	</Design.DataContext>
+
 	<UserControl.Resources>
 		<ControlTheme x:Key="NavButtonStyle"
                       TargetType="Button"
@@ -31,7 +35,12 @@
 	</UserControl.Resources>
 
 	<ScrollViewer>
-		<StackPanel Spacing="-75" Margin="5 5 0 0">
+		<StackPanel Spacing="-90">
+
+			<cont:PageHeaderControl TextType="CoreControls"
+						Classes="small"
+						Height="100"
+						/>
 
 			<ItemsControl ItemsSource="{Binding Pages}"
                           Name="TileItemsControl"

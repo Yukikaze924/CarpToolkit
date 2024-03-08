@@ -13,6 +13,7 @@ public enum PageHeaderTextType
     Main,
     CoreControls,
     FAControls,
+    None,
 }
 
 public class PageHeaderControl : TemplatedControl
@@ -75,24 +76,26 @@ public class PageHeaderControl : TemplatedControl
 
         var theme = ActualThemeVariant;
 
-        const string asset = "avares://FAControlsGallery/Assets/Images/";
+        const string asset = "avares://CarpToolkit/Assets/Images/";
 
         var header = TextType switch
         {
+            PageHeaderTextType.Main => "FAHeaderBackground",
             PageHeaderTextType.CoreControls => "FAHeader_CoreControls",
             PageHeaderTextType.FAControls => "FAHeader_NewControls",
+            PageHeaderTextType.None => "FAHeaderBackground",
             _ => "FAHeader2"
         };
 
-        if (theme == ThemeVariant.Light)
-        {
-            header += "_Dark";
-        }
+        //if (theme == ThemeVariant.Light)
+        //{
+        //    header += "_Dark";
+        //}
 
-        header += ".png";
+        //header += ".png";
 
-        using var s = AssetLoader.Open(new Uri($"{asset}{header}"));
-        _text1.Source = new Bitmap(s);
+        //using var s = AssetLoader.Open(new Uri($"{asset}{header}"));
+        //_text1.Source = new Bitmap(s);
     }
 
     private void OnActualThemeVariantChanged(object sender, EventArgs e)

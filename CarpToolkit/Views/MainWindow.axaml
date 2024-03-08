@@ -8,7 +8,8 @@
 		xmlns:ui="using:FluentAvalonia.UI.Controls"
         mc:Ignorable="d" d:DesignWidth="960" d:DesignHeight="600"
         x:Class="CarpToolkit.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
+		x:DataType="vm:MainViewModel"
+        Icon="/Assets/avalonia-logo.png"
         Title="Carp Toolkit"
 		
 		Width="960" Height="600"
@@ -20,12 +21,16 @@
 	</Design.DataContext>
 	
 	<Grid RowDefinitions="auto,*">
-		
 		<Border Grid.Row="0" Height="50">
-			<TextBlock Text="Carp Toolkit" x:Name="Title"
-					   VerticalAlignment="Center"
-					   FontSize="20" FontWeight="Bold"
-					   Margin="10 0 0 0"/>
+			<StackPanel Orientation="Horizontal"
+						Margin="14 7 0 0"
+						Spacing="15">
+				<Image Source="/Assets/avalonia-logo.png" Width="20"/>
+				<TextBlock Text="{Binding $parent[Window].Title}"
+						   VerticalAlignment="Center"
+						   FontSize="20"
+						   FontWeight="Bold"/>
+			</StackPanel>
 		</Border>
 
 		<ui:NavigationView x:Name="MainNavigationView"
