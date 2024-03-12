@@ -1,0 +1,90 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:CarpToolkit.Pages"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="CarpToolkit.Pages.SystemPageView"
+			 x:DataType="vm:SystemPageViewModel">
+
+	<Design.DataContext>
+		<vm:SystemPageViewModel />
+	</Design.DataContext>
+
+	<Grid RowDefinitions="auto, *" Margin="15">
+
+		<StackPanel Grid.Row="0" Spacing="20">
+			<Button Command="{Binding ExitCommand}">
+				<ui:SymbolIcon Symbol="Back"/>
+			</Button>
+			<TextBlock Theme="{StaticResource TitleTextBlockStyle}"
+					   Text="System"/>
+		</StackPanel>
+
+		<ScrollViewer Grid.Row="1"
+					  Margin="0 20 0 0">
+			<StackPanel Spacing="8">
+
+				<ui:SettingsExpander Header="Device Information"
+									 IconSource="M2 14C2 20.6274 7.37258 26 14 26C20.6274 26 26 20.6274 26 14C26 7.37258 20.6274 2 14 2C7.37258 2 2 7.37258 2 14ZM15.25 8C15.25 8.69036 14.6904 9.25 14 9.25C13.3096 9.25 12.75 8.69036 12.75 8C12.75 7.30964 13.3096 6.75 14 6.75C14.6904 6.75 15.25 7.30964 15.25 8ZM14 11C14.5523 11 15 11.4477 15 12L15 20C15 20.5523 14.5523 21 14 21C13.4477 21 13 20.5523 13 20L13 12C13 11.4477 13.4477 11 14 11Z"
+									 Description="Volume levels, output, input, sound devices">
+					<ui:SettingsExpanderItem>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Width="100" Text="Device Name"/>
+							<TextBlock Text="{Binding DeviceName}" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+						</StackPanel>
+					</ui:SettingsExpanderItem>
+					<ui:SettingsExpanderItem>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Width="100" Text="Processor"/>
+							<TextBlock Text="{Binding Processor}" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+						</StackPanel>
+					</ui:SettingsExpanderItem>
+					<ui:SettingsExpanderItem>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Width="100" Text="Memory"/>
+							<TextBlock Text="{Binding Memory}" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+						</StackPanel>
+					</ui:SettingsExpanderItem>
+					<ui:SettingsExpanderItem>
+						<StackPanel Orientation="Vertical" Spacing="20">
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Width="100" Text="GPU" VerticalAlignment="Center"/>
+								<ComboBox Width="250" ItemsSource="{Binding VideoCards}" SelectedItem="{Binding SelectedVideoCard}">
+									<ComboBox.ItemTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding VideoCardName}"/>
+										</DataTemplate>
+									</ComboBox.ItemTemplate>
+								</ComboBox>
+							</StackPanel>
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Width="100" Text="Model"/>
+								<TextBlock Text="{Binding VideoCardName}" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+							</StackPanel>
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Width="100" Text="RAM"/>
+								<TextBlock Text="{Binding VideoCardRAM}" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+							</StackPanel>
+						</StackPanel>
+					</ui:SettingsExpanderItem>
+				</ui:SettingsExpander>
+
+				<ui:SettingsExpander Header="Sound"
+									 IconSource="Volume"
+									 Description="Volume levels, output, input, sound devices">
+					
+					<ui:SettingsExpanderItem Content="Volume (currently unavailable)">
+						<ui:SettingsExpanderItem.Footer>
+							<Slider Minimum="0" Maximum="100" Value="50" Width="160"/>
+						</ui:SettingsExpanderItem.Footer>
+					</ui:SettingsExpanderItem>
+				</ui:SettingsExpander>
+				
+			</StackPanel>
+		</ScrollViewer>
+
+	</Grid>
+	
+</UserControl>

@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 
 namespace CarpToolkit.ViewModels;
 
-public class ViewModelBase : ObservableObject
+public partial class ViewModelBase : ObservableObject
 {
+    public static EventHandler<ViewModelBase>? CurrentPageChanged;
 }

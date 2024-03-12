@@ -13,8 +13,16 @@ namespace CarpToolkit.ViewModels
         {
             new ToolListItem("Markdown", "Amazing tool for you to Read, Edit and Manage your Markdown Document", "MiscPageIcon", new RelayCommand(() =>
             {
-                MainViewModel.CurrentPageChanged?.Invoke(null, new MarkdownPageViewModel());
+                CurrentPageChanged?.Invoke(null, new MarkdownPageViewModel());
             })),
+            new ToolListItem("System", "Easily change your system configuration", "SystemIcon", new RelayCommand(() =>
+            {
+                CurrentPageChanged?.Invoke(null, new SystemPageViewModel());
+            })),
+            new ToolListItem("Download", "Multi-Thread download manager!", "DownloadIcon", new RelayCommand(() =>
+            {
+                CurrentPageChanged?.Invoke(null, new DownloadPageViewModel());
+            }))
         };
     }
 }

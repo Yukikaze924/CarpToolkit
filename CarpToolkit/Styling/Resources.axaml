@@ -75,6 +75,9 @@
 
     <!-- AppIcons -->
 	<ui:ImageIconSource x:Key="CatFrontViewIcon" Source="avares://CarpToolkit/Assets/avalonia-logo.png" />
+	<ui:ImageIconSource x:Key="DownloadIcon" Source="avares://CarpToolkit/Assets/Icons/DownloadIcon.png" />
+	<ui:ImageIconSource x:Key="SystemIcon" Source="avares://CarpToolkit/Assets/Icons/SystemIcon.png" />
+	<ui:ImageIconSource x:Key="WorkingHomeIcon" Source="avares://CarpToolkit/Assets/Icons/WorkingHomeIcon.png" />
 	
     <!-- PageIcons -->
     <ui:ImageIconSource x:Key="BasicInputPageIcon" Source="avares://CarpToolkit/Assets/Icons/BasicInputIcon.png" />

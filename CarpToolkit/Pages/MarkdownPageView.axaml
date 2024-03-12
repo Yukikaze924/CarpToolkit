@@ -2,11 +2,74 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:CarpToolkit.Pages"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 xmlns:md="https://github.com/whistyun/Markdown.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="CarpToolkit.Pages.MarkdownPageView">
+             x:Class="CarpToolkit.Pages.MarkdownPageView"
+			 x:DataType="vm:MarkdownPageViewModel">
 
-	<ScrollViewer>
+	<Design.DataContext>
+		<vm:MarkdownPageViewModel/>
+	</Design.DataContext>
+
+	<Grid RowDefinitions="auto, *" Name="MainGrid">
+
+		<StackPanel Grid.Row="0"
+					Spacing="5"
+					Orientation="Horizontal"
+					Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}">
+			<Button Command="{Binding ExitCommand}" Margin="15">
+				<ui:SymbolIcon Symbol="Back"/>
+			</Button>
+			<Menu VerticalAlignment="Center">
+				<MenuItem Header="File">
+					<MenuItem Header="Disabled"
+							  IsEnabled="False" />
+					<MenuItem Header="New"
+							  InputGesture="Ctrl+N">
+						<MenuItem Header="Markdown" />
+					</MenuItem>
+					<MenuItem Header="Save" Command="{Binding OpenFileSavingDialogCommand}">
+
+					</MenuItem>
+					<MenuItem Header="Open" Command="{Binding OpenFilePickerCommand}">
+						<MenuItem.Icon>
+							<ui:SymbolIcon Symbol="Open" />
+						</MenuItem.Icon>
+					</MenuItem>
+					<Separator />
+					<MenuItem Header="Exit" Command="{Binding ExitCommand}"/>
+				</MenuItem>
+				<MenuItem Header="Edit">
+					<MenuItem Header="Go To">
+						<MenuItem Header="Go To Line" />
+					</MenuItem>
+				</MenuItem>
+				<MenuItem Header="View">
+					<MenuItem Header="Designer"
+							  InputGesture="Shift+F7" />
+				</MenuItem>
+			</Menu>
+		</StackPanel>
+
+		<Grid Grid.Row="1" Margin="10 0 5 0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+
+			<md:MarkdownScrollViewer Grid.Column="0"
+									 Markdown="{Binding Markdown}"
+									 xml:space="preserve"/>
+			<TextBox Text="{Binding Markdown}"
+					 Grid.Column="1"
+					 AcceptsReturn="True"
+					 AcceptsTab="True"
+					 TextWrapping="Wrap"/>
+		</Grid>
 		
-	</ScrollViewer>
+		
+	</Grid>
 	
 </UserControl>

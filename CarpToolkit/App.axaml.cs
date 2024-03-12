@@ -47,7 +47,7 @@ public partial class App : Application
 
     public App()
     {
-        SettingsHelper.init();
-        PythonHelper.init();
+        SettingsHelper.init("preferences.json");
+        SystemHelper.init();
     }
 }

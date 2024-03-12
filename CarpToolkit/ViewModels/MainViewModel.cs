@@ -34,8 +34,6 @@ public partial class MainViewModel : ViewModelBase
         new SidebarButton("Tools", typeof(ToolsViewModel), "Library"),
     };
 
-    public static EventHandler<ViewModelBase> CurrentPageChanged;
-
     public MainViewModel()
     {
         SelectedButton = SidebarButtons[0];

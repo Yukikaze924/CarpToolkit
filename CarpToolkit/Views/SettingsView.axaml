@@ -18,23 +18,23 @@
                  ColumnDefinitions="*,Auto" RowDefinitions="*,Auto">
 
 				<DockPanel>
-					<Image Source="/Assets/FAIcon.ico"
+					<Image Source="/Assets/Icons/WorkingHomeIcon.png"
                            DockPanel.Dock="Left"
                            Height="78"
                            RenderOptions.BitmapInterpolationMode="HighQuality"/>
 
 					<StackPanel Spacing="0" Margin="12 0">
-						<TextBlock Text="FluentAvalonia"
+						<TextBlock Text="CarpToolkit"
                                    Theme="{StaticResource TitleTextBlockStyle}" />
 
-						<TextBlock Text="{Binding CurrentVersion}"
+						<TextBlock Text="0.7.3"
                                    Theme="{StaticResource BodyTextBlockStyle}" />
 
 						<TextBlock Text="MIT License"
                                    Theme="{StaticResource CaptionTextBlockStyle}" />
 
 						<TextBlock Theme="{StaticResource CaptionTextBlockStyle}"
-                                   Text="http://github.com/amwx/FluentAvalonia"
+                                   Text="https://github.com/Yukikaze924/CarpToolkit"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
 					</StackPanel>
 				</DockPanel>

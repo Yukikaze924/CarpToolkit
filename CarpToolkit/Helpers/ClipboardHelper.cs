@@ -6,7 +6,7 @@ namespace CarpToolkit.Helpers
 {
     public static class ClipboardHelper
     {
-        private static TopLevel Owner { get; set; }
+        public static TopLevel Owner { get; set; }
 
         public static Task SetTextAsync(string text) =>
             Owner.Clipboard.SetTextAsync(text);

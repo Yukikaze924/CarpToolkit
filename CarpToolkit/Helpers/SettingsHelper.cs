@@ -8,14 +8,16 @@ namespace CarpToolkit.Helpers
 {
     public class SettingsHelper
     {
-        public static string FilePath = "settings.json";
+        public static string FilePath;
         public static Settings Settings;
 
-        public static void init()
+        public static void init(string filePath)
         {
+            FilePath = filePath;
+
             if (!SettingsHelper.CheckIfSettingsExists())
             {
-                SettingsHelper.Settings = new Settings(false, "Default");
+                SettingsHelper.Settings = new Settings(true, "Default");
                 SettingsHelper.Save();
             }
             else
