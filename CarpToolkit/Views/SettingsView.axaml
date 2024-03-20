@@ -14,6 +14,7 @@
 
 	<ScrollViewer Padding="10">
 		<StackPanel Spacing="8">
+			
 			<Grid Margin="0 0 0 10"
                  ColumnDefinitions="*,Auto" RowDefinitions="*,Auto">
 
@@ -65,6 +66,16 @@
 				</DockPanel>
 			</Grid>
 
+			<ui:InfoBar Title="Information" IsOpen="{Binding IsOptionsChanged}" IsIconVisible="True" IsClosable="False">
+				<StackPanel>
+					<TextBlock Text="Restart the Application to apply these changes"/>
+					<Button Content="Restart"
+							Command="{Binding RestartCommand}"
+							HorizontalAlignment="Right"
+							Margin="0 -25 20 10"/>
+				</StackPanel>
+			</ui:InfoBar>
+
 			<ui:SettingsExpander Header="App Theme"
                                  IconSource="DarkTheme"
                                  Description="Change the current app theme">
@@ -76,11 +87,22 @@
 			</ui:SettingsExpander>
 
 			<ui:SettingsExpander Header="Sidebar Default State"
-					 IconSource="DockLeftFilled"
-					 Description="Change the current app theme">
-				<ui:SettingsExpander.Footer>
-					<ToggleSwitch IsChecked="{Binding IsPaneOpen}" OnContent="Expanded" OffContent="Collapsed"/>
-				</ui:SettingsExpander.Footer>
+								 IconSource="DockLeftFilled">
+				
+				<ui:SettingsExpanderItem Content="Sidebar Location"
+										 Description="Change the default pane location">
+					<ui:SettingsExpanderItem.Footer>
+						<ComboBox ItemsSource="{Binding PaneLocations}" SelectedItem="{Binding PaneLocation}"/>
+					</ui:SettingsExpanderItem.Footer>
+				</ui:SettingsExpanderItem>		
+				<ui:SettingsExpanderItem Content="Is Sidebar Expanded"
+										 Description="Change the default pane state"
+										 IsEnabled="{Binding IsPaneOpenOptionEnable}">
+					<ui:SettingsExpanderItem.Footer>
+						<ToggleSwitch IsChecked="{Binding IsPaneOpen}" OnContent="Expanded" OffContent="Collapsed"/>
+					</ui:SettingsExpanderItem.Footer>
+				</ui:SettingsExpanderItem>
+
 			</ui:SettingsExpander>
 
 			<ui:SettingsExpander Header="About"

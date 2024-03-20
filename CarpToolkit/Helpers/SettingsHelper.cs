@@ -1,4 +1,5 @@
-﻿using Avalonia.Styling;
+﻿using Avalonia;
+using Avalonia.Styling;
 using CarpToolkit.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -11,18 +12,18 @@ namespace CarpToolkit.Helpers
         public static string FilePath;
         public static Settings Settings;
 
-        public static void init(string filePath)
+        public static void init(string filePath, Settings defaultSettings)
         {
             FilePath = filePath;
 
-            if (!SettingsHelper.CheckIfSettingsExists())
+            if (!CheckIfSettingsExists())
             {
-                SettingsHelper.Settings = new Settings(true, "Default");
-                SettingsHelper.Save();
+                Settings = defaultSettings;
+                Save();
             }
             else
             {
-                SettingsHelper.Settings = SettingsHelper.Load();
+                Settings = Load();
             }
         }
 
@@ -62,8 +63,6 @@ namespace CarpToolkit.Helpers
                         App.Current!.RequestedThemeVariant = ThemeVariant.Dark;
                         break;
                 }
-                SettingsHelper.Settings.AppTheme = value;
-                SettingsHelper.Save();
             }
         }
 

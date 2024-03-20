@@ -1,0 +1,86 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:CarpToolkit.ViewModels"
+			 xmlns:conv="using:CarpToolkit.Converters"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="CarpToolkit.Views.AccountView"
+			 x:DataType="vm:AccountViewModel">
+
+	<Design.DataContext>
+		<vm:AccountViewModel/>
+	</Design.DataContext>
+
+	<UserControl.Resources>
+		<conv:BooleanConverter x:Key="BooleanConverter"/>
+	</UserControl.Resources>
+
+	<ScrollViewer Padding="20">
+		<StackPanel Spacing="20">
+
+			<StackPanel Margin="0 40 0 0"
+						Spacing="20"
+						HorizontalAlignment="Center">
+				<Image Source="/Assets/Icons/AccountIcon.png"
+					   Width="100"
+					   RenderOptions.BitmapInterpolationMode="HighQuality"/>
+				<TextBlock Text="{Binding Nickname}"
+						   FontSize="24"
+						   HorizontalAlignment="Center"
+						   Margin="0 10 0 0"/>
+				<TextBlock Text="{Binding Account}"
+						   FontSize="14"
+						   HorizontalAlignment="Center"
+						   Margin="0 -10 0 0"/>
+			</StackPanel>
+
+			<StackPanel Margin="20"
+					    HorizontalAlignment="Center"
+					    Spacing="10"
+						IsVisible="{Binding IsLoggedIn, Converter={StaticResource BooleanConverter}}">
+				<Button Content="Get started"
+						Command="{Binding GetStartedCommand}"
+						Classes="accent"
+						Width="140"
+						Height="40"
+						HorizontalAlignment="Center"
+						FontWeight="SemiBold"/>
+				<Button Command="{Binding LaunchLoginDialogCommand}"
+						Content="Already have a account?"
+						Height="40"
+						HorizontalAlignment="Center"
+						Theme="{StaticResource TransparentButton}"
+						FontSize="12"/>
+			</StackPanel>
+
+			<StackPanel Margin="20"
+						Spacing="20"
+						IsVisible="{Binding IsLoggedIn}">
+				
+				<Separator />
+
+				<ui:SettingsExpander Header="Account"
+									 Description="Manage the Account preferences"
+									 IconSource="Contact">
+					
+					<ui:SettingsExpanderItem Content="Sign out from this Account">
+						<ui:SettingsExpanderItem.Footer>
+							<Button Content="Sign out"
+									IsVisible="{Binding IsLoggedIn}"
+									Command="{Binding SignOutCommand}"
+									Background="{StaticResource SystemFillColorCriticalBrush}"
+									HorizontalAlignment="Center"
+									Width="100"
+									FontWeight="SemiBold"/>
+						</ui:SettingsExpanderItem.Footer>
+					</ui:SettingsExpanderItem>
+				</ui:SettingsExpander>
+
+			</StackPanel>
+
+		</StackPanel>
+	</ScrollViewer>
+	
+</UserControl>

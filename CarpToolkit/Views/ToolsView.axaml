@@ -28,18 +28,23 @@
 
 			<cont:PageHeaderControl TextType="CoreControls"
                                     Classes="small"
-								    Height="100"
-									/>
-			
-			<Image Source="avares://CarpToolkit/Assets/Images/Github.png" Width="100"
-				   Margin="40 -80 0 0" HorizontalAlignment="Left"/>
+								    Height="100"/>
+			<StackPanel Orientation="Horizontal"
+						Margin="40 -80 0 0">
+				<Image Source="avares://CarpToolkit/Assets/Icons/ToolkitIcon.png"
+					   RenderOptions.BitmapInterpolationMode="HighQuality"
+					   Width="100"
+					   HorizontalAlignment="Left"/>
+				<StackPanel Orientation="Vertical"
+							Margin="20 50 0 0"
+							Spacing="5">
+					<TextBlock Text="Tools"
+							   Theme="{StaticResource TitleTextBlockStyle}"/>
+					<TextBlock Text="The software toolbox page offers various useful tools for users"
+							   Theme="{StaticResource CaptionTextBlockStyle}"/>
+				</StackPanel>
+			</StackPanel>
 
-			<TextBlock Text="Controls included with Avalonia"
-                       Theme="{StaticResource SubtitleTextBlockStyle}"
-                       Margin="30 0 0 0"/>
-			<TextBlock Text="Controls included with Avalonia"
-                       Margin="30 -25 0 0"
-                       Theme="{StaticResource CaptionTextBlockStyle}"/>
 
 			<ItemsControl ItemsSource="{Binding ToolListItems}"
                           Name="ItemsControl"

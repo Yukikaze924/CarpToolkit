@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:CarpToolkit.Pages"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CarpToolkit.Pages.DownloadPageView"
 			 x:DataType="vm:DownloadPageViewModel">
@@ -10,5 +11,19 @@
 	<Design.DataContext>
 		<vm:DownloadPageViewModel/>
 	</Design.DataContext>
+
+	<Grid RowDefinitions="auto, *" Margin="20">
+
+		<StackPanel Grid.Row="0" Spacing="20">
+			<Button Command="{Binding ExitCommand}">
+				<ui:SymbolIcon Symbol="Back"/>
+			</Button>
+			<TextBlock Theme="{StaticResource TitleTextBlockStyle}"
+					   Text="Download"/>
+		</StackPanel>
+
+		
+		
+	</Grid>
 
 </UserControl>

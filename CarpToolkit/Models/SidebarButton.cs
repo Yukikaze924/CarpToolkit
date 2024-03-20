@@ -1,27 +1,28 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Media;
+﻿using CarpToolkit.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarpToolkit.Models
 {
     public class SidebarButton
     {
         public string Label { get; set; }
-        public Type ModelType { get; set; }
+        public ViewModelBase ModelType { get; set; }
         public string Icon { get; set; }
+        public bool CreateNewInstance { get; set; } = true;
 
-        public SidebarButton(string label, Type type, string icon)
+        public SidebarButton(string label, ViewModelBase type, string icon)
         {
             Label = label;
             ModelType = type;
             Icon = icon;
-            //Application.Current!.TryFindResource(icon, out var res);
-            //Icon = (StreamGeometry)res!;
+        }
+
+        public SidebarButton(string label, ViewModelBase type, string icon, bool createNewInstance)
+        {
+            Label = label;
+            ModelType = type;
+            Icon = icon;
+            CreateNewInstance = createNewInstance;
         }
     }
 }

@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:vm="using:CarpToolkit.Pages"
+        mc:Ignorable="d" d:DesignWidth="240" d:DesignHeight="200"
+		Height="200"
+        x:Class="CarpToolkit.Pages.LoginPageView"
+		x:DataType="vm:LoginPageViewModel">
+
+	<Design.DataContext>
+		<vm:LoginPageViewModel/>
+	</Design.DataContext>
+
+	<ScrollViewer Margin="10"
+				  Height="{Binding $parent[UserControl].Bounds.Width}">
+		<StackPanel HorizontalAlignment="Center"
+					VerticalAlignment="Center"
+					Spacing="50"
+					Width="{Binding $parent[ScrollViewer].Bounds.Width}">
+			<TextBox Watermark="Email" Text="{Binding Account}"/>
+			<TextBox Watermark="Password" Text="{Binding Password}"/>
+		</StackPanel>
+	</ScrollViewer>
+	
+</UserControl>
