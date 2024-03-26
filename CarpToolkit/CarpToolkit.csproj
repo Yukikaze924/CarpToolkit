@@ -23,7 +23,17 @@
 
   
   <ItemGroup>
+    <Compile Remove="Assets\AppConfig.cs" />
+  </ItemGroup>
+
+  
+  <ItemGroup>
     <None Remove="Assets\FAIcon.ico" />
+  </ItemGroup>
+
+  
+  <ItemGroup>
+    <AvaloniaResource Include="Models\AppConfig.cs" />
   </ItemGroup>
 
   

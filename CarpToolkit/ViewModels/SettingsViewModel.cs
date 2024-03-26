@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using CarpToolkit.Helpers;
+using CarpToolkit.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -16,6 +17,7 @@ namespace CarpToolkit.ViewModels
         [ObservableProperty]
         private bool _isOptionsChanged = false;
 
+
         /// <summary>
         /// Bindings for variant theme.
         /// </summary>
@@ -25,14 +27,14 @@ namespace CarpToolkit.ViewModels
             "Default", "Light", "Dark"
         };
         [ObservableProperty]
-        private string? _currentAppTheme = SettingsHelper.Load().AppTheme;
+        private string? _currentAppTheme;
         partial void OnCurrentAppThemeChanged(string? value)
         {
             SettingsHelper.Settings.AppTheme = value;
             SettingsHelper.Save();
             SettingsHelper.ChangeThemeVariantByString(value);
-            //IsOptionsChanged = true;
         }
+
 
         /// <summary>
         /// Bindings for pane's lcoation.
@@ -43,12 +45,11 @@ namespace CarpToolkit.ViewModels
             "Left", "Top"
         };
         [ObservableProperty]
-        private string _paneLocation = SettingsHelper.Load().PaneLocation;
+        private string _paneLocation;
         partial void OnPaneLocationChanged(string value)
         {
             SettingsHelper.Settings.PaneLocation = value;
             SettingsHelper.Save();
-            IsOptionsChanged = true;
 
             if (value == "Top")
             {
@@ -59,8 +60,9 @@ namespace CarpToolkit.ViewModels
                 IsPaneOpenOptionEnable = true;
             }
 
-            //PaneLocationChanged?.Invoke(null, value);
+            IsOptionsChanged = true;
         }
+
 
         /// <summary>
         /// Bindings for pane's state of opening.
@@ -68,16 +70,94 @@ namespace CarpToolkit.ViewModels
         [ObservableProperty]
         private bool _isPaneOpenOptionEnable;
         [ObservableProperty]
-        private bool _isPaneOpen = SettingsHelper.Load().IsPaneOpen;
+        private bool _isPaneOpen;
         partial void OnIsPaneOpenChanged(bool value)
         {
             SettingsHelper.Settings.IsPaneOpen = value;
             SettingsHelper.Save();
-            //IsOptionsChanged=true;
+            IsOptionsChanged = true;
         }
+
+
+        /// <summary>
+        /// Bindings for Windows size
+        /// </summary>
+        [ObservableProperty]
+        private bool _useDefault;
+        [ObservableProperty]
+        private int _width;
+        [ObservableProperty]
+        private int _height;
+        partial void OnUseDefaultChanged(bool value)
+        {
+            Settings settings = SettingsHelper.Settings;
+            if (value==true)
+            {
+                settings.Width = 960;
+                settings.Height = 600;
+            }
+            else if(value==false)
+            {
+                settings.Width = Width;
+                settings.Height = Height;
+            }
+
+            settings.UseDefault = value;
+            SettingsHelper.Save();
+
+            IsOptionsChanged = true;
+        }
+        partial void OnWidthChanged(int value)
+        {
+            if (UseDefault)
+            {
+                return;
+            }
+            else
+            {
+                Settings settings = SettingsHelper.Settings;
+                settings.Width = value;
+                SettingsHelper.Save();
+
+                IsOptionsChanged = true;
+            }
+        }
+        partial void OnHeightChanged(int value)
+        {
+            if (UseDefault)
+            {
+                return;
+            }
+            else
+            {
+                Settings settings = SettingsHelper.Settings;
+                settings.Height = value;
+                SettingsHelper.Save();
+
+                IsOptionsChanged = true;
+            }
+        }
+
+
 
         public SettingsViewModel()
         {
+            Settings settings = SettingsHelper.Load()!;
+            UseDefault = settings.UseDefault;
+            if (UseDefault)
+            {
+                Width = 960;
+                Height = 600;
+            }
+            else if (!UseDefault)
+            {
+                Width = settings.Width;
+                Height = settings.Height;
+            }
+            CurrentAppTheme = settings.AppTheme;
+            PaneLocation = settings.PaneLocation;
+            IsPaneOpen = settings.IsPaneOpen;
+
             if (PaneLocation == "Top")
             {
                 IsPaneOpenOptionEnable = false;
@@ -86,6 +166,13 @@ namespace CarpToolkit.ViewModels
             {
                 IsPaneOpenOptionEnable= true;
             }
+
+            /*
+             * 由于在构造函数中赋值会触发 PropertyChanged(), 
+             * 导致 IsOptionsChanged = true
+             * 所以我在构造函数尾部重新将 IsOptionsChanged 恢复为false
+             */
+            IsOptionsChanged = false;
         }
 
         [RelayCommand]

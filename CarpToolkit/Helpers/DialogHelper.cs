@@ -69,6 +69,20 @@ namespace CarpToolkit.Helpers
             await td.ShowAsync(true);
         }
 
+        public static async void ShowResultDialog(string header, string subheader)
+        {
+            var dialog = new ContentDialog()
+            {
+                Title = header,
+                CloseButtonText = "Close",
+            };
 
+            dialog.Content = new TextBlock()
+            {
+                Text = subheader
+            };
+
+            await dialog.ShowAsync();
+        }
     }
 }

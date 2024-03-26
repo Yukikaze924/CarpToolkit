@@ -4,12 +4,14 @@ using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using CarpToolkit.Helpers;
 using CarpToolkit.Models;
+using CarpToolkit.Services;
 using CarpToolkit.ViewModels;
 using CarpToolkit.Views;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System;
+using System.IO;
 
 namespace CarpToolkit;
 
@@ -25,8 +27,6 @@ public partial class App : Application
         // Line below is needed to remove Avalonia data validation.
         // Without this line you will get duplicate validations from both Avalonia and CT
         BindingPlugins.DataValidators.RemoveAt(0);
-
-        Ioc.Default.ConfigureServices(ConfigureServices());
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
@@ -47,18 +47,24 @@ public partial class App : Application
 
         SettingsHelper.ChangeThemeVariantByString(SettingsHelper.Settings.AppTheme);
         Ioc.Default.GetRequiredService<ILogger>().Information("Application Initialization Completed\n"+
-                                                              $"Platform: {System.Environment.OSVersion.VersionString}\n"+
+                                                              $"Platform: {Environment.OSVersion.VersionString}\n"+
                                                               $"Description: {System.Runtime.InteropServices.RuntimeInformation.OSDescription}\n"+
-                                                              $"Architecture: {System.Runtime.InteropServices.RuntimeInformation.OSArchitecture.ToString()}");
+                                                              $"Architecture: {System.Runtime.InteropServices.RuntimeInformation.OSArchitecture}\n");
     }
+
+    public static string path = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\\CarpToolkit";
 
     public App()
     {
-        SettingsHelper.init("preferences.json", new Settings(true, "Default", "Left"));
-        CacheHelper.init("cache.json", new Cache(true)
+        Ioc.Default.ConfigureServices(ConfigureServices());
+
+        if (!Directory.Exists(path))
         {
-            isLoggedIn = false
-        });
+            Directory.CreateDirectory(path);
+        }
+
+        SettingsHelper.init($"{path}\\preferences.json", new Settings());
+        CacheHelper.init($"{path}\\cache.dll", new Cache());
         SystemHelper.init();
     }
 
@@ -66,11 +72,15 @@ public partial class App : Application
     {
         var collection = new ServiceCollection();
 
-        collection.AddTransient<MainViewModel>();
-        //collection.AddTransient<SettingsViewModel>();
-        collection.AddTransient<AccountViewModel>();
-
-        collection.AddSingleton<ILogger>(new LoggerConfiguration().WriteTo.File(@"CarpToolkit.log").CreateLogger());
+        collection.AddSingleton<ILogger>(new LoggerConfiguration().WriteTo.File($"{path}\\CarpToolkit.log").CreateLogger());
+        collection.AddSingleton(new ConfigService
+        {
+            Path = $"{path}\\appconfig.dll",
+            AppConfig = new AppConfig
+            {
+                Host = new Host("hakuryuu25500.top", "http://hakuryuu25500.top", new Port(80, 8000, 3306))
+            },
+        }.Build());
 
         return collection.BuildServiceProvider();
     }

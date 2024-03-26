@@ -12,7 +12,7 @@
         Icon="/Assets/avalonia-logo.png"
         Title="Carp Toolkit"
 		
-		Width="960" Height="600"
+		Width="{Binding Width}" Height="{Binding Height}"
 		CanResize="True"
 		WindowStartupLocation="CenterScreen">
 

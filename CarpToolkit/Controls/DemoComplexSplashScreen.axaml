@@ -10,7 +10,8 @@
                     VerticalAlignment="Center">
             <Image Source="/Assets/Icons/WorkingHomeIcon.png"
                    Width="150"
-                   Height="150" />
+                   Height="150"
+				   RenderOptions.BitmapInterpolationMode="HighQuality"/>
             
             
             <ProgressBar Name="ProgressBar1"

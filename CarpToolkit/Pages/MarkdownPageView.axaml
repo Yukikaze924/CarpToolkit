@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:CarpToolkit.Pages"
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 xmlns:cont="using:CarpToolkit.Controls"
 			 xmlns:md="https://github.com/whistyun/Markdown.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CarpToolkit.Pages.MarkdownPageView"
@@ -19,9 +20,9 @@
 					Spacing="5"
 					Orientation="Horizontal"
 					Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}">
-			<Button Command="{Binding ExitCommand}" Margin="15">
+			<!--<Button Command="{Binding ExitCommand}" Margin="15">
 				<ui:SymbolIcon Symbol="Back"/>
-			</Button>
+			</Button>-->
 			<Menu VerticalAlignment="Center">
 				<MenuItem Header="File">
 					<MenuItem Header="Disabled"
@@ -45,10 +46,6 @@
 					<MenuItem Header="Go To">
 						<MenuItem Header="Go To Line" />
 					</MenuItem>
-				</MenuItem>
-				<MenuItem Header="View">
-					<MenuItem Header="Designer"
-							  InputGesture="Shift+F7" />
 				</MenuItem>
 			</Menu>
 		</StackPanel>

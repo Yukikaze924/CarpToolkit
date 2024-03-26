@@ -1,8 +1,5 @@
 ﻿using CarpToolkit.Controls;
 using CarpToolkit.Helpers;
-using CarpToolkit.Models;
-using CarpToolkit.ViewModels;
-using CommunityToolkit.Mvvm.DependencyInjection;
 using FluentAvalonia.UI.Windowing;
 
 namespace CarpToolkit.Views;
@@ -16,7 +13,7 @@ public partial class MainWindow : AppWindow
         if (CacheHelper.Load()!.isFirstTime)
         {
             SplashScreen = new ComplexSplashScreen();
-            CacheHelper.Load()!.isFirstTime = false;
+            CacheHelper.Cache.isFirstTime = false;
             CacheHelper.Save();
         }
 

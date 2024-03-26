@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:CarpToolkit.Pages"
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 xmlns:cont="using:CarpToolkit.Controls"
+			 xmlns:conv="using:CarpToolkit.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CarpToolkit.Pages.DownloadPageView"
 			 x:DataType="vm:DownloadPageViewModel">
@@ -11,18 +13,97 @@
 	<Design.DataContext>
 		<vm:DownloadPageViewModel/>
 	</Design.DataContext>
+	
+	<UserControl.Resources>
+		<conv:SubtractConverter x:Key="SubtractConverter"/>
+	</UserControl.Resources>
 
 	<Grid RowDefinitions="auto, *" Margin="20">
 
-		<StackPanel Grid.Row="0" Spacing="20">
-			<Button Command="{Binding ExitCommand}">
-				<ui:SymbolIcon Symbol="Back"/>
-			</Button>
-			<TextBlock Theme="{StaticResource TitleTextBlockStyle}"
-					   Text="Download"/>
+		<StackPanel Grid.Row="0" Spacing="10">
+			<cont:GoBackButton/>
+			<DockPanel>
+				<Image Source="/Assets/Icons/DownloadIcon.png"
+					   DockPanel.Dock="Left"
+					   Height="70"
+					   RenderOptions.BitmapInterpolationMode="HighQuality"/>
+
+				<StackPanel Spacing="0" Margin="12 0">
+					<TextBlock Text="Download"
+							   Theme="{StaticResource TitleTextBlockStyle}"/>
+					<TextBlock Text="Powered by Carp.org"
+							   Theme="{StaticResource CaptionTextBlockStyle}"
+							   Foreground="{StaticResource AccentTextFillColorTertiaryBrush}"/>
+					<TextBlock Text="0.7.3"
+							   Theme="{StaticResource CaptionTextBlockStyle}"/>
+				</StackPanel>
+			</DockPanel>
+			<!--<WrapPanel>
+				<Image Source="/Assets/Icons/DownloadIcon.png"
+					   Height="60"
+					   RenderOptions.BitmapInterpolationMode="HighQuality"/>
+				<TextBlock Theme="{StaticResource TitleTextBlockStyle}"
+						   Text="Download"
+						   Margin="20"
+						   VerticalAlignment="Center"/>
+			</WrapPanel>-->
 		</StackPanel>
 
-		
+		<Grid Grid.Row="1" RowDefinitions="auto, *" Margin="0 30 0 0">
+
+			<!--<StackPanel Grid.Row="0"
+						Orientation="Horizontal">
+				<TextBlock Text="Address"
+						   VerticalAlignment="Center"
+						   Margin="5 0 40 0"
+						   Theme="{StaticResource BodyStrongTextBlockStyle}"/>
+				<TextBox Text="{Binding Address}"
+						 Width="100"/>
+				<Button Content="Go"
+						Command="{Binding DownloadCommand}"
+						Background="{StaticResource AccentFillColorSelectedTextBackgroundBrush}"
+						Width="70"
+						Margin="20 0"/>
+			</StackPanel>-->
+			
+			<Grid Grid.Row="0"
+				  ColumnDefinitions="10*, 2*, 2*">
+				<!--<TextBlock Text="Address"
+						   Grid.Column="0"
+						   VerticalAlignment="Center"
+						   Margin="5 0 40 0"
+						   Theme="{StaticResource BodyStrongTextBlockStyle}"/>-->
+				<!--<ui:SymbolIcon Symbol="Download" FontSize="20" />-->
+				<TextBox Text="{Binding Address}"
+						 Grid.Column="0"/>
+				<Button Content="Go"
+						Grid.Column="1"
+						Command="{Binding DownloadCommand}"
+						Background="{StaticResource AccentFillColorSelectedTextBackgroundBrush}"
+						MinWidth="70"
+						Margin="20 0"/>
+				<Button Grid.Column="2"
+						Content="Clear history"
+						Command="{Binding ClearHistoryCommand}"
+						MinWidth="100"
+						HorizontalAlignment="Right"/>
+			</Grid>
+
+			<DataGrid Grid.Row="1"
+					  Name="DataGrid"
+					  ItemsSource="{Binding FileDetails}"
+					  x:DataType="vm:FileDetail"
+					  Margin="0 20 0 0"
+					  IsReadOnly="True">
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="File" Binding="{Binding Name}" Width="5*" />
+					<DataGridTextColumn Header="Link" Binding="{Binding Link}" Width="3*" />
+					<DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="1*" />
+					<DataGridTextColumn Header="Format" Binding="{Binding Format}" Width="1*" />
+				</DataGrid.Columns>
+			</DataGrid>
+			
+		</Grid>
 		
 	</Grid>
 

@@ -3,23 +3,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:CarpToolkit.ViewModels"
-			 xmlns:conv="using:CarpToolkit.Converters"
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="CarpToolkit.Views.SettingsView"
-			 x:DataType="vm:SettingsViewModel">
+             x:Class="CarpToolkit.Views.HelpView"
+			 x:DataType="vm:HelpViewModel">
 
 	<Design.DataContext>
-		<vm:SettingsViewModel />
+		<vm:HelpViewModel/>
 	</Design.DataContext>
-
-	<UserControl.Resources>
-		<conv:BooleanConverter x:Key="BooleanConverter"/>
-	</UserControl.Resources>
 
 	<ScrollViewer Padding="15">
 		<StackPanel Spacing="8">
-			
+
 			<Grid Margin="0 0 0 10"
                  ColumnDefinitions="*,Auto" RowDefinitions="*,Auto">
 
@@ -71,77 +66,19 @@
 				</DockPanel>
 			</Grid>
 
-			<ui:InfoBar Title="Information" IsOpen="{Binding IsOptionsChanged}" IsIconVisible="True" IsClosable="False">
-				<StackPanel>
-					<TextBlock Text="Restart to apply these changes"/>
-					<Button Content="Restart"
-							Command="{Binding RestartCommand}"
-							HorizontalAlignment="Right"
-							Margin="0 -25 20 10"/>
-				</StackPanel>
-			</ui:InfoBar>
-
-			<ui:SettingsExpander Header="App Theme"
-                                 IconSource="DarkTheme"
-                                 Description="Change the current app theme">
-
-				<ui:SettingsExpander.Footer>
-					<ComboBox SelectedItem="{Binding CurrentAppTheme}"
-                              ItemsSource="{Binding AppThemes}"
-							  MinWidth="120"/>
-				</ui:SettingsExpander.Footer>
-			</ui:SettingsExpander>
-
-			<ui:SettingsExpander Header="Windows"
-								 IconSource="CalendarEmpty">
-
-				<ui:SettingsExpanderItem Content="Size"
-										 Description="Change the default size of windows"
-										 IsEnabled="{Binding UseDefault, Converter={StaticResource BooleanConverter}}">
-					<ui:SettingsExpanderItem.Footer>
-						<WrapPanel>
-							<TextBox Text="{Binding Width}" Margin="10"/>
-							<TextBlock Text="X" VerticalAlignment="Center"/>
-							<TextBox Text="{Binding Height}" Margin="10"/>
-						</WrapPanel>
-					</ui:SettingsExpanderItem.Footer>
-				</ui:SettingsExpanderItem>
-
-				<ui:SettingsExpander.Footer>
-					<WrapPanel>
-						<CheckBox IsChecked="{Binding UseDefault}"/>
-						<TextBlock Text="Use default" VerticalAlignment="Center"/>
-					</WrapPanel>
-				</ui:SettingsExpander.Footer>
-			</ui:SettingsExpander>
-
-			<ui:SettingsExpander Header="Sidebar Default State"
-								 IconSource="DockLeftFilled">
-				
-				<ui:SettingsExpanderItem Content="Sidebar Location"
-										 Description="Change the default pane location">
-					<ui:SettingsExpanderItem.Footer>
-						<ComboBox ItemsSource="{Binding PaneLocations}" SelectedItem="{Binding PaneLocation}"/>
-					</ui:SettingsExpanderItem.Footer>
-				</ui:SettingsExpanderItem>
-				
-				<ui:SettingsExpanderItem Content="Is Sidebar Expanded"
-										 Description="Change the default pane state"
-										 IsEnabled="{Binding IsPaneOpenOptionEnable}">
-					<ui:SettingsExpanderItem.Footer>
-						<ToggleSwitch IsChecked="{Binding IsPaneOpen}" OnContent="Expanded" OffContent="Collapsed"/>
-					</ui:SettingsExpanderItem.Footer>
-				</ui:SettingsExpanderItem>
-			</ui:SettingsExpander>
-
-			<!--<ui:SettingsExpander Header="About"
-                                 IconSource="M2 14C2 20.6274 7.37258 26 14 26C20.6274 26 26 20.6274 26 14C26 7.37258 20.6274 2 14 2C7.37258 2 2 7.37258 2 14ZM15.25 8C15.25 8.69036 14.6904 9.25 14 9.25C13.3096 9.25 12.75 8.69036 12.75 8C12.75 7.30964 13.3096 6.75 14 6.75C14.6904 6.75 15.25 7.30964 15.25 8ZM14 11C14.5523 11 15 11.4477 15 12L15 20C15 20.5523 14.5523 21 14 21C13.4477 21 13 20.5523 13 20L13 12C13 11.4477 13.4477 11 14 11Z">
+			<ui:SettingsExpander Header="About"
+                                 IconSource="M2 14C2 20.6274 7.37258 26 14 26C20.6274 26 26 20.6274 26 14C26 7.37258 20.6274 2 14 2C7.37258 2 2 7.37258 2 14ZM15.25 8C15.25 8.69036 14.6904 9.25 14 9.25C13.3096 9.25 12.75 8.69036 12.75 8C12.75 7.30964 13.3096 6.75 14 6.75C14.6904 6.75 15.25 7.30964 15.25 8ZM14 11C14.5523 11 15 11.4477 15 12L15 20C15 20.5523 14.5523 21 14 21C13.4477 21 13 20.5523 13 20L13 12C13 11.4477 13.4477 11 14 11Z"
+								 IsExpanded="{Binding IsExpanded}">
 
 				<ui:SettingsExpanderItem Content="Found a bug? Want a new feature?"
                                          ActionIconSource="Open"
                                          IsClickEnabled="True" Command="{Binding LaunchRepoLinkItemClickedCommand}"
                                          Name="LaunchRepoLinkItem"/>
-
+				<!--<ui:SettingsExpanderItem Content="Clone FluentAvalonia repository">
+					<ui:SettingsExpanderItem.Footer>
+						<SelectableTextBlock Text="git clone https://github.com/amwx/FluentAvalonia" />
+					</ui:SettingsExpanderItem.Footer>
+				</ui:SettingsExpanderItem>-->
 				<ui:SettingsExpanderItem>
 					<StackPanel Spacing="4">
 						<TextBlock Text="Dependencies" />
@@ -151,6 +88,9 @@
 						<TextBlock TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}">
 							Avalonia is licensed under the MIT license
 						</TextBlock>
+						<!--<TextBlock TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}">
+							Both Avalonia and WinUI are not affiliated with and do not endorse FluentAvalonia.
+						</TextBlock>-->
 						<TextBlock TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}">
 							Main page header image created using https://www.freepik.com/free-vector/paper-style-white-monochrome-background_15628815.htm
 						</TextBlock>
@@ -171,7 +111,7 @@
 						<TextBlock TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}">
 							For full MIT license, please see the license.md file
 						</TextBlock>
-						--><!--<TextBlock TextWrapping="Wrap"
+						<!--<TextBlock TextWrapping="Wrap"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}">
 							<Run>
 								CarpToolkit is licensed under the MIT license.
@@ -189,11 +129,11 @@
 							<Run>
 								For full MIT license, please see the license.md file
 							</Run>
-						</TextBlock>--><!--
+						</TextBlock>-->
 					</StackPanel>
 				</ui:SettingsExpanderItem>
-			</ui:SettingsExpander>-->
-			
+			</ui:SettingsExpander>
+
 		</StackPanel>
 	</ScrollViewer>
 	

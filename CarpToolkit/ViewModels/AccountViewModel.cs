@@ -1,10 +1,12 @@
 ﻿using Avalonia.Controls;
 using CarpToolkit.Helpers;
 using CarpToolkit.Pages;
+using CarpToolkit.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using FluentAvalonia.UI.Controls;
+using Serilog;
 using Serilog.Core;
 using System;
 using System.Diagnostics;
@@ -56,7 +58,7 @@ namespace CarpToolkit.ViewModels
 
                     try
                     {
-                        UserModel? user = await HttpHelper.LoginPostAsync("http://hakuryuu25500.top:8000/login/", vm.Account, vm.Password);
+                        UserModel? user = await HttpHelper.LoginPostAsync(vm.Account, vm.Password);
                         if (user!=null && user.isUserValid)
                         {
                             var cache = CacheHelper.Load();
@@ -65,8 +67,11 @@ namespace CarpToolkit.ViewModels
                             cache.nickname = user.nickname;
                             CacheHelper.Save();
 
+                            var logger = Ioc.Default.GetRequiredService<ILogger>();
+                            logger.Information($"User {user.nickname}({user.account}) has logged in");
+
                             CurrentPageChanged?.Invoke(null, new AccountViewModel());
-                            ShowResultDialog($"Welcome!", $"You're currently logged in as {user.nickname}{Environment.NewLine}{Environment.NewLine}Account: {user.account}");
+                            DialogHelper.ShowResultDialog($"Welcome!", $"You're currently logged in as {user.nickname}{Environment.NewLine}{Environment.NewLine}Account: {user.account}");
                             return;
                         }
                         else
@@ -76,14 +81,14 @@ namespace CarpToolkit.ViewModels
                     }
                     catch(Exception ex) when (ex is NullReferenceException)
                     {
-                        SerilogService.logger.Error("Login Post Request returns a null");
+                        Ioc.Default.GetRequiredService<ILogger>().Error("No response from the Host");
                     }
                     catch(Exception ex)
                     {
-                        SerilogService.logger.Error($"Unknown Http Post Error occurred{Environment.NewLine}{ex.Message}");
+                        Ioc.Default.GetRequiredService<ILogger>().Error($"Unknown Http Error occurred{Environment.NewLine}{ex.Message}");
                     }
 
-                    ShowResultDialog("Something went wrong...", "Probably our server crashed again (`T_T)");
+                    DialogHelper.ShowResultDialog("Something went wrong...", "Probably our server crashed again (`T_T)");
 
                     break;
             }
@@ -107,27 +112,32 @@ namespace CarpToolkit.ViewModels
         private void SignOut()
         {
             var cache = CacheHelper.Load();
+            var logger = Ioc.Default.GetRequiredService<ILogger>();
+
+            logger.Information($"User {cache.nickname}({cache.account}) has signed out");
+
             cache.isLoggedIn = false;
             cache.account = null;
             cache.nickname = null;
             CacheHelper.Save();
+
             CurrentPageChanged?.Invoke(null, new AccountViewModel());
         }
 
-        private async void ShowResultDialog(string header, string subheader)
-        {
-            var dialog = new ContentDialog()
-            {
-                Title = header,
-                CloseButtonText = "Close",
-            };
+        //private async void ShowResultDialog(string header, string subheader)
+        //{
+        //    var dialog = new ContentDialog()
+        //    {
+        //        Title = header,
+        //        CloseButtonText = "Close",
+        //    };
 
-            dialog.Content = new TextBlock()
-            {
-                Text = subheader
-            };
+        //    dialog.Content = new TextBlock()
+        //    {
+        //        Text = subheader
+        //    };
 
-            var result = await dialog.ShowAsync();
-        }
+        //    await dialog.ShowAsync();
+        //}
     }
 }
