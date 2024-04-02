@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using Avalonia;
+using CommunityToolkit.Mvvm.Input;
 using FluentAvalonia.UI.Controls;
 
 namespace CarpToolkit.Models
@@ -14,7 +15,7 @@ namespace CarpToolkit.Models
         {
             Header = header;
             Description = description;
-            App.Current.Resources.TryGetResource(iconKey, null, out var icon);
+            Application.Current.Resources.TryGetResource(iconKey, null, out var icon);
             Icon = (IconSource)icon;
             InvokeCommand = invokeCommand;
         }

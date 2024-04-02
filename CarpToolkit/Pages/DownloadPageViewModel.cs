@@ -32,7 +32,7 @@ namespace CarpToolkit.Pages
         {
             if (Address == null)
             {
-                DialogHelper.ShowResultDialog("Error!", "You have to submit a valid Address!");
+                DialogHelper.ShowResultDialog("Warning!", "Address cannot be null");
                 return;
             }
 
@@ -45,7 +45,7 @@ namespace CarpToolkit.Pages
             }
             catch
             {
-                DialogHelper.ShowResultDialog("Error!", "Failed to obtain user download path directory!");
+                DialogHelper.ShowResultDialog("Error!", "Not a valid Address");
                 return;
             }
             string filepath = $@"{downloadFolder}\{filename}";
@@ -71,7 +71,15 @@ namespace CarpToolkit.Pages
 
                     td.SetProgressBarState(0, state);
 
-                    await HttpHelper.DownloadFile(Address, filepath);
+                    try { await HttpHelper.DownloadFile(Address, filepath); }
+                    catch
+                    {
+                        Dispatcher.UIThread.Post(() =>
+                        {
+                            td.Hide(TaskDialogStandardResult.No);
+                        }); 
+                        return;
+                    }
 
                     Dispatcher.UIThread.Post(() => { td.Hide(TaskDialogStandardResult.OK); });
                 });
@@ -92,8 +100,11 @@ namespace CarpToolkit.Pages
             switch (result)
             {
                 case TaskDialogStandardResult.OK:
-                    //DialogHelper.ShowResultDialog("File has been downloaded!", filepath);
                     FileDetails.Add(new FileDetail(filename, Address, DateTime.Now, GetFileFormat(filename)));
+                    break;
+
+                case TaskDialogStandardResult.No:
+                    DialogHelper.ShowResultDialog("Critical Error!", $"{Address}\nis not a valid Link\n");
                     break;
             }
         }

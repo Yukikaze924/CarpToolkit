@@ -1,8 +1,10 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using CarpToolkit.Helpers;
 using CarpToolkit.ViewModels;
-using System;
-using System.Diagnostics;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace CarpToolkit.Views
 {
@@ -21,6 +23,20 @@ namespace CarpToolkit.Views
             {
                 homeViewModel.Navigate();
                 args.Handled = true;
+            }
+        }
+
+        private void Border_SizeChanged(object? sender, SizeChangedEventArgs e)
+        {
+            if (e.NewSize.Width <= 800)
+            {
+                JumbotronImage.IsVisible = false;
+                e.Handled = true;
+                return;
+            }
+            else if (e.NewSize.Width > 800)
+            {
+                JumbotronImage.IsVisible= true;
             }
         }
     }

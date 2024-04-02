@@ -1,19 +1,17 @@
-﻿namespace CarpToolkit.Models
+﻿using CarpToolkit.Services;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using System;
+
+namespace CarpToolkit.Models
 {
     public class Settings
     {
+        public string StoragePath { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         public string AppTheme { get; set; } = "Default";
-        public int Width { get; set; } = 960;
-        public int Height { get; set; } = 600;
+        public int Width { get; set; } = 1114;
+        public int Height { get; set; } = 700;
         public bool UseDefault { get; set; } = true;
-        public bool IsPaneOpen { get; set; } = true;
+        public bool IsPaneOpen { get; set; } = false;
         public string PaneLocation { get; set; } = "Left";
-
-        //public Settings(bool val1, string val2, string paneLocation)
-        //{
-        //    IsPaneOpen = val1;
-        //    AppTheme = val2;
-        //    PaneLocation = paneLocation;
-        //}
     }
 }

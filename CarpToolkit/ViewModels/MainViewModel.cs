@@ -1,6 +1,8 @@
 ﻿using CarpToolkit.Helpers;
 using CarpToolkit.Models;
+using CarpToolkit.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using System;
 using System.Collections.ObjectModel;
 
@@ -8,6 +10,10 @@ namespace CarpToolkit.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
+    [ObservableProperty]
+    private Models.App app = Ioc.Default.GetRequiredService<ConfigService>().AppConfig.App;
+
+
     /// <summary>
     /// Windows related bindings
     /// </summary>

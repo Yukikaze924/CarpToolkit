@@ -1,4 +1,5 @@
-﻿using CarpToolkit.Controls;
+﻿using Avalonia.Controls;
+using CarpToolkit.Controls;
 using CarpToolkit.Helpers;
 using FluentAvalonia.UI.Windowing;
 

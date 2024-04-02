@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Media.Imaging;
 using CarpToolkit.Helpers;
 using CarpToolkit.Pages;
 using CarpToolkit.Services;
@@ -18,12 +19,12 @@ namespace CarpToolkit.ViewModels
     {
         [ObservableProperty]
         private bool _isLoggedIn;
-
         [ObservableProperty]
         private string _nickname;
-
         [ObservableProperty]
         private string _account;
+        [ObservableProperty]
+        private Bitmap _avatar;
 
         public AccountViewModel()
         {
@@ -31,6 +32,14 @@ namespace CarpToolkit.ViewModels
             IsLoggedIn = cache.isLoggedIn ? cache.isLoggedIn : false;
             Account = cache.account ?? "Become our user to learn more about features";
             Nickname = cache.nickname ?? "Not logged in";
+            if (string.IsNullOrEmpty(cache.avatar))
+            {
+                Avatar = ImageHelper.LoadFromResource(new Uri("avares://CarpToolkit/Assets/Icons/AccountIcon.png"));
+            }
+            else
+            {
+                Avatar = ImageHelper.LoadFromBase64(cache.avatar);
+            }
         }
 
 
@@ -65,6 +74,8 @@ namespace CarpToolkit.ViewModels
                             cache.isLoggedIn = true;
                             cache.account = user.account;
                             cache.nickname = user.nickname;
+                            cache.password = user.password;
+                            cache.avatar = user.avatar;
                             CacheHelper.Save();
 
                             var logger = Ioc.Default.GetRequiredService<ILogger>();
@@ -119,6 +130,8 @@ namespace CarpToolkit.ViewModels
             cache.isLoggedIn = false;
             cache.account = null;
             cache.nickname = null;
+            cache.password = null;
+            cache.avatar = null;
             CacheHelper.Save();
 
             CurrentPageChanged?.Invoke(null, new AccountViewModel());

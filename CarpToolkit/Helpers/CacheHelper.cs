@@ -58,5 +58,7 @@ namespace CarpToolkit.Helpers
         public bool isLoggedIn { get; set; } = false;
         public string? account { get; set; }
         public string? nickname { get; set; }
+        public string? password { get; set; }
+        public string? avatar { get; set; }
     }
 }

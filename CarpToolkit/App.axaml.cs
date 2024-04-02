@@ -52,12 +52,11 @@ public partial class App : Application
                                                               $"Architecture: {System.Runtime.InteropServices.RuntimeInformation.OSArchitecture}\n");
     }
 
-    public static string path = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\\CarpToolkit";
+    //public static string path = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\\CarpToolkit";
+    public string path = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\\CarpToolkit";
 
     public App()
     {
-        Ioc.Default.ConfigureServices(ConfigureServices());
-
         if (!Directory.Exists(path))
         {
             Directory.CreateDirectory(path);
@@ -65,20 +64,27 @@ public partial class App : Application
 
         SettingsHelper.init($"{path}\\preferences.json", new Settings());
         CacheHelper.init($"{path}\\cache.dll", new Cache());
+
         SystemHelper.init();
+
+        Ioc.Default.ConfigureServices(GetServiceCollection());
     }
 
-    private static IServiceProvider ConfigureServices()
+    private ServiceProvider GetServiceCollection()
     {
         var collection = new ServiceCollection();
 
-        collection.AddSingleton<ILogger>(new LoggerConfiguration().WriteTo.File($"{path}\\CarpToolkit.log").CreateLogger());
-        collection.AddSingleton(new ConfigService
+        collection.AddSingleton<ILogger>(_ => new LoggerConfiguration()
+            .WriteTo
+            .File($"{path}\\CarpToolkit.log", fileSizeLimitBytes: 4096)
+            .CreateLogger());
+        collection.AddSingleton<ConfigService>(_ => new ConfigService()
         {
             Path = $"{path}\\appconfig.dll",
             AppConfig = new AppConfig
             {
-                Host = new Host("hakuryuu25500.top", "http://hakuryuu25500.top", new Port(80, 8000, 3306))
+                App = new Models.App(),
+                Host = new Host("hakuryuu25500.top", "http://127.0.0.1", new Port()),
             },
         }.Build());
 

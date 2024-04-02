@@ -2,7 +2,9 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using CarpToolkit.Helpers;
 using CarpToolkit.Models;
+using CarpToolkit.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,12 @@ namespace CarpToolkit.ViewModels
 {
     public partial class SettingsViewModel : ViewModelBase
     {
+        /// <summary>
+        /// 从Ioc中获取ConfigService的单例，其提供了一些必须的配置常量
+        /// </summary>
+        private readonly Models.App app = Ioc.Default.GetRequiredService<ConfigService>().AppConfig.App;
+
+
         [ObservableProperty]
         private bool _isOptionsChanged = false;
 
@@ -93,8 +101,8 @@ namespace CarpToolkit.ViewModels
             Settings settings = SettingsHelper.Settings;
             if (value==true)
             {
-                settings.Width = 960;
-                settings.Height = 600;
+                settings.Width = app.Default.width;
+                settings.Height = app.Default.height;
             }
             else if(value==false)
             {
@@ -139,6 +147,18 @@ namespace CarpToolkit.ViewModels
         }
 
 
+        /// <summary>
+        /// Bindings for Storage
+        /// </summary>
+        [ObservableProperty]
+        private string _storagePath;
+        [RelayCommand]
+        private void ClearCache()
+        {
+            DialogHelper.ShowResultDialog("Done!", "All caches have been deleted");
+        }
+
+
 
         public SettingsViewModel()
         {
@@ -146,18 +166,19 @@ namespace CarpToolkit.ViewModels
             UseDefault = settings.UseDefault;
             if (UseDefault)
             {
-                Width = 960;
-                Height = 600;
+                Width = app.Default.width;
+                Height = app.Default.height;
             }
             else if (!UseDefault)
             {
                 Width = settings.Width;
                 Height = settings.Height;
             }
+
             CurrentAppTheme = settings.AppTheme;
+
             PaneLocation = settings.PaneLocation;
             IsPaneOpen = settings.IsPaneOpen;
-
             if (PaneLocation == "Top")
             {
                 IsPaneOpenOptionEnable = false;
@@ -167,26 +188,14 @@ namespace CarpToolkit.ViewModels
                 IsPaneOpenOptionEnable= true;
             }
 
+            StoragePath = settings.StoragePath;
+
             /*
              * 由于在构造函数中赋值会触发 PropertyChanged(), 
              * 导致 IsOptionsChanged = true
              * 所以我在构造函数尾部重新将 IsOptionsChanged 恢复为false
              */
             IsOptionsChanged = false;
-        }
-
-        [RelayCommand]
-        private async Task LaunchRepoLinkItemClickedAsync()
-        {
-            try
-            {
-                Process.Start(new ProcessStartInfo("https://formally-wanted-yak.ngrok-free.app/contact")
-                { UseShellExecute = true, Verb = "open" });
-            }
-            catch
-            {
-                await DialogHelper.ShowUnableToOpenLinkDialog(new Uri("https://formally-wanted-yak.ngrok-free.app/contact"));
-            }
         }
 
         [RelayCommand]

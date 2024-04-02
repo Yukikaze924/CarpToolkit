@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:vm="using:CarpToolkit.Pages"
         mc:Ignorable="d" d:DesignWidth="240" d:DesignHeight="200"
-		Height="200"
+		Height="240"
         x:Class="CarpToolkit.Pages.LoginPageView"
 		x:DataType="vm:LoginPageViewModel">
 
@@ -12,14 +12,24 @@
 		<vm:LoginPageViewModel/>
 	</Design.DataContext>
 
-	<ScrollViewer Margin="10"
-				  Height="{Binding $parent[UserControl].Bounds.Width}">
+	<ScrollViewer Height="{Binding $parent[UserControl].Bounds.Width}">
 		<StackPanel HorizontalAlignment="Center"
 					VerticalAlignment="Center"
 					Spacing="50"
 					Width="{Binding $parent[ScrollViewer].Bounds.Width}">
-			<TextBox Watermark="Email" Text="{Binding Account}"/>
-			<TextBox Watermark="Password" Text="{Binding Password}"/>
+			<StackPanel Spacing="8">
+				<TextBlock Text="Account"
+						   Theme="{StaticResource BodyTextBlockStyle}"/>
+				<TextBox Watermark="Enter your email"
+						 Text="{Binding Account}"/>
+			</StackPanel>
+			<StackPanel Spacing="8">
+				<TextBlock Text="Password"
+						   Theme="{StaticResource BodyTextBlockStyle}"/>
+				<TextBox Watermark="Enter your password"
+						 Text="{Binding Password}"
+						 PasswordChar="•"/>				
+			</StackPanel>
 		</StackPanel>
 	</ScrollViewer>
 	

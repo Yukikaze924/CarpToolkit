@@ -1,4 +1,6 @@
 using Avalonia.Controls;
+using Avalonia.Interactivity;
+using CarpToolkit.ViewModels;
 
 namespace CarpToolkit.Views
 {
@@ -7,6 +9,15 @@ namespace CarpToolkit.Views
         public HelpView()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object? sender, RoutedEventArgs args)
+        {
+            if (args.Source is Button b && b.DataContext is DependencyDetail dependency)
+            {
+                dependency.Navigate();
+                args.Handled = true;
+            }
         }
     }
 }

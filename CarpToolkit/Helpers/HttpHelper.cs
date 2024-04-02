@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using CarpToolkit.Services;
+using CarpToolkit.ViewModels;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Newtonsoft.Json;
 using Serilog;
@@ -39,6 +41,55 @@ namespace CarpToolkit.Helpers
 
                 return null;
             }
+        }
+
+        public static ObservableCollection<ArticleModel> GetLatestPost()
+        {
+            using (var client = new HttpClient())
+            {
+                var config = Ioc.Default.GetRequiredService<ConfigService>().AppConfig;
+                string url = $"{config.Host.address}:{config.Host.port.api}/articles";
+
+                try
+                {
+                    var response = client.GetAsync(url).Result;
+                    response.EnsureSuccessStatusCode();
+                    var content = response.Content.ReadAsStringAsync().Result;
+
+                    var articles = JsonConvert.DeserializeObject<ObservableCollection<ArticleModel>>(content);
+                    return articles;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            //using (var client = new HttpClient())
+            //{
+            //    var config = Ioc.Default.GetRequiredService<ConfigService>().AppConfig;
+
+            //    string url = $"{config.Host.address}:{config.Host.port.api}/articles";
+            //    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);
+
+            //    try
+            //    {
+            //        var response = await client.SendAsync(request);
+
+            //        if (response.IsSuccessStatusCode)
+            //        {
+            //            string result = await response.Content.ReadAsStringAsync();
+            //            var articles = JsonConvert.DeserializeObject<List<ArticleModel>>(result);
+
+            //            return articles;
+            //        }
+            //    }
+            //    catch
+            //    {
+            //        return null;
+            //    }
+
+            //    return null;
+            //}
         }
 
         public static async Task DownloadFile(string url, string filepath)
@@ -85,5 +136,6 @@ namespace CarpToolkit.Helpers
         public string account { get; set; }
         public string nickname { get; set; }
         public string password { get; set; }
+        public string avatar { get; set; }
     }
 }

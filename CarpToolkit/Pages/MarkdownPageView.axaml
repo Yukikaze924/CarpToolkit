@@ -5,24 +5,31 @@
 			 xmlns:vm="using:CarpToolkit.Pages"
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
 			 xmlns:cont="using:CarpToolkit.Controls"
+			 xmlns:conv="using:CarpToolkit.Converters"
 			 xmlns:md="https://github.com/whistyun/Markdown.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CarpToolkit.Pages.MarkdownPageView"
-			 x:DataType="vm:MarkdownPageViewModel">
+			 x:DataType="vm:MarkdownPageViewModel"
+			 DragDrop.AllowDrop="True">
 
 	<Design.DataContext>
 		<vm:MarkdownPageViewModel/>
 	</Design.DataContext>
 
-	<Grid RowDefinitions="auto, *" Name="MainGrid">
+	<UserControl.Resources>
+
+		
+		
+		<conv:BooleanConverter x:Key="BooleanConverter"/>
+	</UserControl.Resources>
+
+	<Grid RowDefinitions="auto, *"
+		  Name="MainGrid">
 
 		<StackPanel Grid.Row="0"
 					Spacing="5"
 					Orientation="Horizontal"
 					Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}">
-			<!--<Button Command="{Binding ExitCommand}" Margin="15">
-				<ui:SymbolIcon Symbol="Back"/>
-			</Button>-->
 			<Menu VerticalAlignment="Center">
 				<MenuItem Header="File">
 					<MenuItem Header="Disabled"
@@ -50,7 +57,7 @@
 			</Menu>
 		</StackPanel>
 
-		<Grid Grid.Row="1" Margin="10 0 5 0">
+		<Grid Grid.Row="1" Margin="10 0 5 0" IsVisible="{Binding IsEditing}">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*" />
 				<ColumnDefinition Width="*" />
@@ -60,12 +67,39 @@
 									 Markdown="{Binding Markdown}"
 									 xml:space="preserve"/>
 			<TextBox Text="{Binding Markdown}"
+					 Name="MarkdownTextBox"
 					 Grid.Column="1"
 					 AcceptsReturn="True"
 					 AcceptsTab="True"
 					 TextWrapping="Wrap"/>
 		</Grid>
-		
+		<Grid Grid.Row="1"
+			  IsVisible="{Binding IsEditing, Converter={StaticResource BooleanConverter}}"
+			  DragDrop.AllowDrop="True">
+			<StackPanel Background="{DynamicResource MicaBackgroundFillColorBaseBrush}"					
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center">
+				<TextBlock Text="Choose a file..."
+						   Theme="{StaticResource SubtitleTextBlockStyle}"
+						   Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+						   Margin="4"/>
+				<TextBlock Text="Or just drop it here"
+						   Theme="{StaticResource CaptionTextBlockStyle}"
+						   Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+						   Margin="4"/>
+			</StackPanel>
+		</Grid>
+		<Rectangle Name="DragDropRectangle"
+				   Grid.Row="1"
+				   Fill="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+				   Opacity="0"
+				   IsVisible="{Binding IsEditing, Converter={StaticResource BooleanConverter}}">
+			<Rectangle.Transitions>
+				<Transitions>
+					<DoubleTransition Property="Opacity" Duration="0:0:0.1"/>
+				</Transitions>		
+			</Rectangle.Transitions>
+		</Rectangle>
 		
 	</Grid>
 	

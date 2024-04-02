@@ -38,15 +38,6 @@
 							   Theme="{StaticResource CaptionTextBlockStyle}"/>
 				</StackPanel>
 			</DockPanel>
-			<!--<WrapPanel>
-				<Image Source="/Assets/Icons/DownloadIcon.png"
-					   Height="60"
-					   RenderOptions.BitmapInterpolationMode="HighQuality"/>
-				<TextBlock Theme="{StaticResource TitleTextBlockStyle}"
-						   Text="Download"
-						   Margin="20"
-						   VerticalAlignment="Center"/>
-			</WrapPanel>-->
 		</StackPanel>
 
 		<Grid Grid.Row="1" RowDefinitions="auto, *" Margin="0 30 0 0">
@@ -93,6 +84,8 @@
 					  Name="DataGrid"
 					  ItemsSource="{Binding FileDetails}"
 					  x:DataType="vm:FileDetail"
+					  DoubleTapped="DataGrid_DoubleTapped"
+					  CornerRadius="5"
 					  Margin="0 20 0 0"
 					  IsReadOnly="True">
 				<DataGrid.Columns>

@@ -66,34 +66,67 @@
 				</DockPanel>
 			</Grid>
 
-			<ui:SettingsExpander Header="About"
-                                 IconSource="M2 14C2 20.6274 7.37258 26 14 26C20.6274 26 26 20.6274 26 14C26 7.37258 20.6274 2 14 2C7.37258 2 2 7.37258 2 14ZM15.25 8C15.25 8.69036 14.6904 9.25 14 9.25C13.3096 9.25 12.75 8.69036 12.75 8C12.75 7.30964 13.3096 6.75 14 6.75C14.6904 6.75 15.25 7.30964 15.25 8ZM14 11C14.5523 11 15 11.4477 15 12L15 20C15 20.5523 14.5523 21 14 21C13.4477 21 13 20.5523 13 20L13 12C13 11.4477 13.4477 11 14 11Z"
+			<TextBlock Text="About"
+					   Theme="{StaticResource SubtitleTextBlockStyle}"
+					   Margin="0 15 0 0"/>
+			<!-- IconSource="M2 14C2 20.6274 7.37258 26 14 26C20.6274 26 26 20.6274 26 14C26 7.37258 20.6274 2 14 2C7.37258 2 2 7.37258 2 14ZM15.25 8C15.25 8.69036 14.6904 9.25 14 9.25C13.3096 9.25 12.75 8.69036 12.75 8C12.75 7.30964 13.3096 6.75 14 6.75C14.6904 6.75 15.25 7.30964 15.25 8ZM14 11C14.5523 11 15 11.4477 15 12L15 20C15 20.5523 14.5523 21 14 21C13.4477 21 13 20.5523 13 20L13 12C13 11.4477 13.4477 11 14 11Z" -->
+			<ui:SettingsExpander Header="Carp Toolkit"
+								 Description="© 2020-2024 Carp.org All Rights Reserved."
+								 IconSource="{StaticResource CatFrontViewIcon}"
 								 IsExpanded="{Binding IsExpanded}">
+
+				<ui:SettingsExpanderItem>
+					<ui:SettingsExpanderItem.Content>
+						<WrapPanel>
+							<TextBlock Text="Powered by "
+									   Theme="{StaticResource BodyTextBlockStyle}"
+									   VerticalAlignment="Center"/>
+							<Image Source="/Assets/Icons/DotnetCoreIcon.png"
+								   Width="20"
+								   RenderOptions.BitmapInterpolationMode="HighQuality"/>
+							<!--<ui:IconSourceElement IconSource="{StaticResource DotnetIcon}"
+												  Width="16"
+												  Height="16"/>-->
+							<TextBlock Text=" 8.0.202"
+									   Theme="{StaticResource BodyTextBlockStyle}"
+									   VerticalAlignment="Center"/>
+						</WrapPanel>
+					</ui:SettingsExpanderItem.Content>
+					<ui:SettingsExpanderItem.Footer>
+						<SelectableTextBlock Text="https://github.com/microsoft/dotnet"
+											 Theme="{StaticResource CaptionTextBlockStyle}"/>
+					</ui:SettingsExpanderItem.Footer>
+				</ui:SettingsExpanderItem>
 
 				<ui:SettingsExpanderItem Content="Found a bug? Want a new feature?"
                                          ActionIconSource="Open"
                                          IsClickEnabled="True" Command="{Binding LaunchRepoLinkItemClickedCommand}"
                                          Name="LaunchRepoLinkItem"/>
-				<!--<ui:SettingsExpanderItem Content="Clone FluentAvalonia repository">
-					<ui:SettingsExpanderItem.Footer>
-						<SelectableTextBlock Text="git clone https://github.com/amwx/FluentAvalonia" />
-					</ui:SettingsExpanderItem.Footer>
-				</ui:SettingsExpanderItem>-->
+
 				<ui:SettingsExpanderItem>
-					<StackPanel Spacing="4">
-						<TextBlock Text="Dependencies" />
-						<TextBlock TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}">
-							All resources, brushes, and control naming come from the Avalonia repository (https://github.com/AvaloniaUI/Avalonia) which is licensed under the MIT license.
+					<StackPanel Spacing="8">
+						<TextBlock Text="Dependencies"/>
+						<!--<TextBlock Foreground="{DynamicResource AccentTextFillColorTertiaryBrush}">
+							Avalonia
 						</TextBlock>
-						<TextBlock TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}">
-							Avalonia is licensed under the MIT license
+						<TextBlock Foreground="{DynamicResource AccentTextFillColorTertiaryBrush}">
+							FluentAvalonia
 						</TextBlock>
-						<!--<TextBlock TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}">
-							Both Avalonia and WinUI are not affiliated with and do not endorse FluentAvalonia.
+						<TextBlock Foreground="{DynamicResource AccentTextFillColorTertiaryBrush}">
+							Newtonsoft.Json
 						</TextBlock>-->
-						<TextBlock TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}">
-							Main page header image created using https://www.freepik.com/free-vector/paper-style-white-monochrome-background_15628815.htm
-						</TextBlock>
+						<WrapPanel>
+							<ItemsControl ItemsSource="{Binding DependencyDetails}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate DataType="vm:DependencyDetail">
+										<Button Content="{Binding Name}"
+												Click="Button_Click"
+												Foreground="{DynamicResource AccentTextFillColorTertiaryBrush}"
+												Theme="{StaticResource TransparentButton}"/>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+						</WrapPanel>
 					</StackPanel>
 				</ui:SettingsExpanderItem>
 				<ui:SettingsExpanderItem>

@@ -1,10 +1,35 @@
-﻿namespace CarpToolkit.Models
+﻿using System;
+
+namespace CarpToolkit.Models
 {
     public class AppConfig
     {
-        public Host? Host { get; set; }
+        public App App { get; set; }
+        public Host Host { get; set; }
     }
 
+
+    /// <summary>
+    /// 程序常量配置部分
+    /// </summary>
+    public class App
+    {
+        public string name { get; set; } = "CarpToolkit";
+        public string fullname { get; set; } = "Carp Toolkit";
+        public string organization { get; set; } = "Carp.org";
+        public Default Default { get; set; } = new Default();
+    }
+    public class Default
+    {
+        public int width { get; set; } = 1114;
+        public int height { get; set; } = 700;
+        public string storage_path { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+    }
+
+
+    /// <summary>
+    /// 主机通讯部分
+    /// </summary>
     public class Host
     {
         public Host(string? domain, string? address, Port? port)
@@ -18,18 +43,10 @@
         public string? address { get; set; }
         public Port? port { get; set; }
     }
-
     public class Port
     {
-        public Port(int? website, int? api, int? database)
-        {
-            this.website = website;
-            this.api = api;
-            this.database = database;
-        }
-
-        public int? website { get; set; }
-        public int? api { get; set; }
-        public int? database { get; set; }
+        public int? website { get; set; } = 80;
+        public int? api { get; set; } = 8000;
+        public int? database { get; set; } = 3306;
     }
 }

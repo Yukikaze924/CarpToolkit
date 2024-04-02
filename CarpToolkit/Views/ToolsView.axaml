@@ -21,12 +21,35 @@
 		<Thickness x:Key="SettingsExpanderItemContentMargin">64 0 0 0</Thickness>
 	</UserControl.Resources>
 
-	<ScrollViewer>
+	<ScrollViewer Padding="0">
 		<StackPanel Spacing="25"
                     Margin="0 0 0 30"
                     ClipToBounds="False">
 
-			<cont:PageHeaderControl TextType="CoreControls"
+			<StackPanel Spacing="-54">
+				<cont:PageHeaderControl TextType="CoreControls"
+										Classes="small"
+										Height="76"/>
+				<DockPanel Margin="15 15 0 0">
+					<Image Source="/Assets/Icons/ToolkitIcon.png"
+						   DockPanel.Dock="Left"
+						   Height="78"
+						   RenderOptions.BitmapInterpolationMode="HighQuality"/>
+
+					<StackPanel Spacing="2"
+								Margin="12 0">
+						<TextBlock Text="Tools"
+								   Theme="{StaticResource TitleTextBlockStyle}"/>
+						<TextBlock Text="Powered by Carp.org"
+								   Theme="{StaticResource CaptionTextBlockStyle}"
+								   Foreground="{DynamicResource AccentTextFillColorTertiaryBrush}"/>
+						<TextBlock Text="Provides a variety of software tools"
+								   Theme="{StaticResource CaptionTextBlockStyle}"/>
+					</StackPanel>
+				</DockPanel>
+			</StackPanel>
+
+			<!--<cont:PageHeaderControl TextType="CoreControls"
                                     Classes="small"
 								    Height="100"/>
 			<StackPanel Orientation="Horizontal"
@@ -36,20 +59,20 @@
 					   Width="100"
 					   HorizontalAlignment="Left"/>
 				<StackPanel Orientation="Vertical"
-							Margin="20 50 0 0"
+							Margin="20 40 0 0"
 							Spacing="5">
 					<TextBlock Text="Tools"
 							   Theme="{StaticResource TitleTextBlockStyle}"/>
 					<TextBlock Text="The software toolbox page offers various useful tools for users"
 							   Theme="{StaticResource CaptionTextBlockStyle}"/>
 				</StackPanel>
-			</StackPanel>
+			</StackPanel>-->
 
 
 			<ItemsControl ItemsSource="{Binding ToolListItems}"
                           Name="ItemsControl"
                           ClipToBounds="False"
-                          Padding="{StaticResource SampleAppPageMargin}">
+						  Margin="{StaticResource SampleAppPageMargin}">
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
 						<StackPanel Spacing="4" ClipToBounds="False" />
@@ -62,7 +85,8 @@
                                              Description="{Binding Description}"
                                              IsClickEnabled="True"
                                              ClipToBounds="False"
-                                             IconSource="{Binding Icon}" >
+                                             IconSource="{Binding Icon}"
+											 Cursor="Hand">
 						</ui:SettingsExpander>
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>

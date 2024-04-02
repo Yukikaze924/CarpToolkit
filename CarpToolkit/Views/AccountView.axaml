@@ -17,27 +17,36 @@
 		<conv:BooleanConverter x:Key="BooleanConverter"/>
 	</UserControl.Resources>
 
-	<ScrollViewer Padding="20">
-		<StackPanel Spacing="20">
+	<ScrollViewer Padding="15">
+		<Grid RowDefinitions="3*, 2*">
 
-			<StackPanel Margin="0 40 0 0"
+			<StackPanel Margin="0 -15 0 0" Grid.Row="0"
 						Spacing="20"
-						HorizontalAlignment="Center">
-				<Image Source="/Assets/Icons/AccountIcon.png"
-					   Width="100"
-					   RenderOptions.BitmapInterpolationMode="HighQuality"/>
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center">
+				<Border Width="120"
+						CornerRadius="60"
+						ClipToBounds="True">
+					<Image Source="{Binding Avatar}"
+						   Width="{Binding $parent[Border].Bounds.Width}"
+						   Stretch="Fill"
+						   RenderOptions.BitmapInterpolationMode="HighQuality">
+					</Image>
+				</Border>
 				<TextBlock Text="{Binding Nickname}"
 						   FontSize="24"
 						   HorizontalAlignment="Center"
 						   Margin="0 10 0 0"/>
 				<TextBlock Text="{Binding Account}"
 						   FontSize="14"
+						   Foreground="{DynamicResource TextFillColorSecondaryBrush}"
 						   HorizontalAlignment="Center"
 						   Margin="0 -10 0 0"/>
 			</StackPanel>
 
-			<StackPanel Margin="20"
+			<StackPanel Margin="0 -32 0 0" Grid.Row="1"
 					    HorizontalAlignment="Center"
+						VerticalAlignment="Center"
 					    Spacing="10"
 						IsVisible="{Binding IsLoggedIn, Converter={StaticResource BooleanConverter}}">
 				<Button Content="Get started"
@@ -55,12 +64,10 @@
 						FontSize="12"/>
 			</StackPanel>
 
-			<StackPanel Margin="20"
+			<StackPanel Margin="20" Grid.Row="1"
 						Spacing="20"
-						IsVisible="{Binding IsLoggedIn}">
-				
+						IsVisible="{Binding IsLoggedIn}">		
 				<Separator />
-
 				<ui:SettingsExpander Header="Account"
 									 Description="Manage the Account preferences"
 									 IconSource="Contact">
@@ -70,17 +77,16 @@
 							<Button Content="Sign out"
 									IsVisible="{Binding IsLoggedIn}"
 									Command="{Binding SignOutCommand}"
-									Background="{StaticResource SystemFillColorCriticalBrush}"
+									Background="{DynamicResource SystemFillColorCriticalBrush}"
 									HorizontalAlignment="Center"
 									Width="100"
 									FontWeight="SemiBold"/>
 						</ui:SettingsExpanderItem.Footer>
 					</ui:SettingsExpanderItem>
 				</ui:SettingsExpander>
-
 			</StackPanel>
 
-		</StackPanel>
+		</Grid>
 	</ScrollViewer>
 	
 </UserControl>

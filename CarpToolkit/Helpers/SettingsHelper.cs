@@ -1,8 +1,6 @@
-﻿using Avalonia;
-using Avalonia.Styling;
+﻿using Avalonia.Styling;
 using CarpToolkit.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.IO;
 
 namespace CarpToolkit.Helpers
@@ -29,7 +27,7 @@ namespace CarpToolkit.Helpers
 
         public static void Save()
         {
-            string json = JsonConvert.SerializeObject(Settings);
+            string json = JsonConvert.SerializeObject(Settings, Formatting.Indented);
             File.WriteAllText(FilePath, json);
         }
 

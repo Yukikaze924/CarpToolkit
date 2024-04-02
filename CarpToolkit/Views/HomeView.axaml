@@ -4,25 +4,29 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:local="using:CarpToolkit"
 			 xmlns:vm="using:CarpToolkit.ViewModels"
+			 xmlns:m="using:CarpToolkit.Models"
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
 			 xmlns:cont="using:CarpToolkit.Controls"
 			 xmlns:conv="using:CarpToolkit.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CarpToolkit.Views.HomeView"
-			 x:DataType="vm:HomeViewModel">
+			 x:DataType="vm:HomeViewModel"
+			 
+			 SizeChanged="Border_SizeChanged">
 
 	<Design.DataContext>
 		<vm:HomeViewModel/>
 	</Design.DataContext>
 
 	<UserControl.Resources>
+		
 		<ControlTheme x:Key="NavButtonStyle"
                       TargetType="Button"
                       BasedOn="{StaticResource {x:Type Button}}">
 			<Setter Property="Width" Value="170" />
 			<Setter Property="Height" Value="160" />
 			<Setter Property="Padding" Value="0" />
-			<Setter Property="Margin" Value="6" />
+			<Setter Property="Margin" Value="8" />
 			<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 			<Setter Property="VerticalContentAlignment" Value="Stretch" />
 
@@ -30,49 +34,176 @@
 				<Setter Property="ClipToBounds" Value="True" />
 			</Style>
 		</ControlTheme>
+		
+		<ControlTheme x:Key="Jumbotron"
+					  TargetType="Border">
+			<Setter Property="Background" Value="{DynamicResource AcrylicBackgroundFillColorBaseBrush}"/>
+			<Setter Property="CornerRadius" Value="20"/>
+			<Setter Property="Margin" Value="0 5 0 50"/>
+			<Setter Property="Padding" Value="0 0 15 0"/>
+			<Setter Property="ClipToBounds" Value="True"/>
+			<Setter Property="Width" Value="{Binding $parent[StackPanel].Bounds.Width}"/>
+			<Setter Property="MinWidth" Value="760"/>
+			<Setter Property="MinHeight" Value="300"/>
+			<!--<Setter Property="MaxWidth" Value="1204"/>-->
+			<Setter Property="MaxHeight" Value="600"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+		</ControlTheme>
 
-		<conv:StringToBitmapConverter x:Key="StringBmpConv" />
+		<conv:StringToUrlBitmapConverter x:Key="StringToUrlBitmapConverter" />
+		
 	</UserControl.Resources>
 
 	<ScrollViewer>
-		<StackPanel Spacing="-90">
+		<StackPanel Margin="15"
+					Spacing="8"
+					MaxWidth="1204">
 
-			<cont:PageHeaderControl TextType="CoreControls"
-						Classes="small"
-						Height="100"
-						/>
+			<TextBlock Text="Welcome to Carp Toolkit!"
+					   Theme="{StaticResource SubtitleTextBlockStyle}"/>
+			<Border Theme="{StaticResource Jumbotron}">
+				<Grid ColumnDefinitions="2*, *">
+					<Image Grid.Column="0"
+						   Source="/Assets/Images/PartyAnimals.png"
+						   Name="JumbotronImage"
+						   MinWidth="500"
+						   RenderOptions.BitmapInterpolationMode="HighQuality"/>
+					<Grid Grid.Column="1">
+						<StackPanel Margin="15 0"
+									Spacing="40"
+									VerticalAlignment="Center">
+							<TextBlock Text="Party Animal"
+									   Theme="{StaticResource TitleTextBlockStyle}"
+									   FontWeight="Heavy"/>
+							<TextBlock Text="Fight your friends as puppies, kittens and other fuzzy creatures in PARTY ANIMALS! Paw it out with your friends remotely, or huddle together for chaotic fun on the same screen. Interact with the world under our realistic physics engine. Did I mention PUPPIES?"
+									   Theme="{StaticResource CaptionTextBlockStyle}"
+									   Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+									   HorizontalAlignment="Center"/>
+							<StackPanel Spacing="30">
+								<Button Content="Learn more"
+										Classes="accent"
+										Command="{Binding LearnMoreButtonClickedCommand}"/>
+								<!--<WrapPanel>
+									<Border Background="Black"
+											CornerRadius="0"
+											BoxShadow="5 3 15 0 DarkGray"
+											Width="60"
+											Height="32">
+										<TextBlock Text="$ 80.00"
+												   Foreground="Gray"
+												   HorizontalAlignment="Center"
+												   VerticalAlignment="Center"/>
+									</Border>
+									<Border BoxShadow="5 3 15 0 DarkGray">
+										<Button Content="Buy on Steam"
+												Height="32"
+												CornerRadius="0"
+												Margin="2 0 0 0"
+												Background="Green"
+												Foreground="LightGreen"/>
+									</Border>
+								</WrapPanel>-->
+							</StackPanel>
+						</StackPanel>
+					</Grid>
+					<WrapPanel Grid.Column="0"
+							   Margin="0 0 10 10"
+							   HorizontalAlignment="Right"
+							   VerticalAlignment="Bottom">
+						<Border Background="Black"
+								CornerRadius="0"
+								BoxShadow="5 3 15 0 DarkGray"
+								Width="60"
+								Height="32">
+							<TextBlock Text="$ 80.00"
+									   Foreground="Gray"
+									   HorizontalAlignment="Center"
+									   VerticalAlignment="Center"/>
+						</Border>
+						<Border BoxShadow="5 3 15 0 DarkGray">
+							<Button Content="Buy on Steam"
+									Command="{Binding BuyOnSteamButtonClickedCommand}"
+									Height="32"
+									CornerRadius="0"
+									Background="Green"
+									Foreground="LightGreen"/>
+						</Border>
+					</WrapPanel>
+				</Grid>
+			</Border>
 
-			<ItemsControl ItemsSource="{Binding Pages}"
-                          Name="TileItemsControl"
-                          ClipToBounds="False"
-                          Margin="{StaticResource SampleAppPageMargin}">
-				<ItemsControl.ItemsPanel>
-					<ItemsPanelTemplate>
-						<WrapPanel />
-					</ItemsPanelTemplate>
-				</ItemsControl.ItemsPanel>
-				<ItemsControl.ItemTemplate>
-					<DataTemplate DataType="vm:HomeNavPageViewModel">
-						<Button Theme="{StaticResource NavButtonStyle}">
-							<Grid RowDefinitions="3*,*">
-								<Border CornerRadius="4 4 0 0"
-                                        VerticalAlignment="Stretch"
-                                        HorizontalAlignment="Stretch"
-                                        RenderOptions.BitmapInterpolationMode="HighQuality">
-									<Border.Background>
-										<ImageBrush Source="{Binding ImageUri, Converter={StaticResource StringBmpConv}}"
-                                                    Stretch="Fill" />
-									</Border.Background>
-								</Border>
-								<TextBlock Text="{Binding Title}"
-                                           FontWeight="SemiBold"
-                                           Margin="12"
-                                           Grid.Row="1" />
-							</Grid>
-						</Button>
-					</DataTemplate>
-				</ItemsControl.ItemTemplate>
-			</ItemsControl>
+			<TextBlock Text="Latest Posts"
+					   Theme="{StaticResource SubtitleTextBlockStyle}"/>
+			<StackPanel Width="{Binding $parent[StackPanel].Bounds.Width}"
+						HorizontalAlignment="Center">
+				<ItemsControl ItemsSource="{Binding Posts}"
+							  ClipToBounds="False">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<WrapPanel />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate DataType="vm:PostDetail">
+							<Button Theme="{StaticResource NavButtonStyle}">
+								<Grid RowDefinitions="3*,auto,auto">
+									<Border CornerRadius="4 4 0 0"
+											VerticalAlignment="Stretch"
+											HorizontalAlignment="Stretch"
+											RenderOptions.BitmapInterpolationMode="HighQuality">
+										<Border.Background>
+											<ImageBrush Source="{Binding Image}"
+														Stretch="Fill"/>
+										</Border.Background>
+									</Border>
+									<TextBlock Text="{Binding Title}"
+											   FontWeight="SemiBold"
+											   Margin="12"
+											   Grid.Row="1"
+											   TextWrapping="Wrap"/>
+								</Grid>
+							</Button>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</StackPanel>
+
+
+			<!--<TextBlock Text="Document"
+					   Theme="{StaticResource SubtitleTextBlockStyle}"/>
+			<StackPanel Width="{Binding $parent[StackPanel].Bounds.Width}"
+						HorizontalAlignment="Center">
+				<ItemsControl ItemsSource="{Binding Pages}"
+							  Name="TileItemsControl"
+							  ClipToBounds="False">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<WrapPanel />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate DataType="vm:HomeNavPageViewModel">
+							<Button Theme="{StaticResource NavButtonStyle}">
+								<Grid RowDefinitions="3*,*">
+									<Border CornerRadius="4 4 0 0"
+											VerticalAlignment="Stretch"
+											HorizontalAlignment="Stretch"
+											RenderOptions.BitmapInterpolationMode="HighQuality">
+										<Border.Background>
+											<ImageBrush Source="{Binding ImageUri, Converter={StaticResource StringToUrlBitmapConverter}}"
+														Stretch="Fill"/>
+										</Border.Background>
+									</Border>
+									<TextBlock Text="{Binding Title}"
+											   FontWeight="SemiBold"
+											   Margin="12"
+											   Grid.Row="1"/>
+								</Grid>
+							</Button>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</StackPanel>-->
 			
 		</StackPanel>
 	</ScrollViewer>

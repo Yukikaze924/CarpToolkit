@@ -9,8 +9,8 @@
         mc:Ignorable="d" d:DesignWidth="960" d:DesignHeight="600"
         x:Class="CarpToolkit.Views.MainWindow"
 		x:DataType="vm:MainViewModel"
-        Icon="/Assets/avalonia-logo.png"
-        Title="Carp Toolkit"
+        Icon="/Assets/Logo.png"
+        Title="{Binding App.fullname}"
 		
 		Width="{Binding Width}" Height="{Binding Height}"
 		CanResize="True"
@@ -21,15 +21,31 @@
 	</Design.DataContext>
 	
 	<Grid RowDefinitions="auto,*">
+		
 		<Border Grid.Row="0" Height="50">
+			<Border.Styles>
+				<Style Selector="Image">
+					<Setter Property="RenderTransform" Value="rotate(0)"/>
+				</Style>
+				<Style Selector="Image:pointerover">
+					<Setter Property="RenderTransform" Value="rotate(-24deg)"/>
+				</Style>
+			</Border.Styles>
 			<StackPanel Orientation="Horizontal"
 						Margin="14 7 0 0"
 						Spacing="15">
-				<Image Source="/Assets/avalonia-logo.png" Width="20"/>
+				<Image Source="/Assets/Logo.png"
+					   Width="32"
+					   RenderOptions.BitmapInterpolationMode="HighQuality">
+					<Image.Transitions>
+						<Transitions>
+							<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2"/>
+						</Transitions>
+					</Image.Transitions>
+				</Image>
 				<TextBlock Text="{Binding $parent[Window].Title}"
 						   VerticalAlignment="Center"
-						   FontSize="20"
-						   FontWeight="Bold"/>
+						   Theme="{StaticResource SubtitleTextBlockStyle}"/>
 			</StackPanel>
 		</Border>
 
@@ -47,7 +63,9 @@
 			
 			<ui:NavigationView.MenuItemTemplate>
 				<DataTemplate DataType="{x:Type m:SidebarButton}">
-					<ui:NavigationViewItem Content="{Binding Label}" IconSource="{Binding Icon}" />
+					<ui:NavigationViewItem Content="{Binding Label}"
+										   IconSource="{Binding Icon}"
+										   Cursor="Hand"/>
 				</DataTemplate>
 			</ui:NavigationView.MenuItemTemplate>
 			

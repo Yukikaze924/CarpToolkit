@@ -12,7 +12,26 @@ namespace CarpToolkit.Pages
     public partial class MarkdownPageViewModel : ViewModelBase
     {
         [ObservableProperty]
-        private string? _markdown = "#Hello, Markdown!";
+        private string? _markdown;
+
+        [ObservableProperty]
+        private bool _isEditing;
+        [ObservableProperty]
+        private bool _isEdited = false;
+
+        partial void OnMarkdownChanged(string? value)
+        {
+            if (IsEdited == true) return;
+            IsEditing = !string.IsNullOrEmpty(value);
+            IsEdited = true;
+        }
+
+
+        public MarkdownPageViewModel()
+        {
+            IsEditing = !string.IsNullOrWhiteSpace(Markdown);
+        }
+
 
         [RelayCommand]
         private async Task OpenFilePickerAsync()

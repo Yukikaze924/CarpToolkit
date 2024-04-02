@@ -71,7 +71,7 @@
 				</ui:SettingsExpander>
 
 				<ui:SettingsExpander Header="Sound"
-									 IconSource="Volume"
+									 IconSource="Speaker2Filled"
 									 Description="Volume levels, output, input, sound devices">
 					
 					<ui:SettingsExpanderItem Content="Volume (currently unavailable)">
